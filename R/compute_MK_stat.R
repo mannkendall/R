@@ -1,5 +1,17 @@
-## t.time is array of times expressed as a 6 column data.frame with year, month, day, hour, minute, second
-## data is the time series of the variable to be analysed
+#' compute Mann-Kendall statistics
+#'
+#' This function computes Mann Kendall statistics for a given time series
+#'
+#' @param t.time is array of times expressed as a 6 column data.frame with year, month, day, hour, minute, second
+#' @param data: is the time series of the variable to be analysed
+#' @param alpha.mk: confidence limit for Mk test in percentage. Default value is 95
+#' @param alpha.cl: confidence limit for the confidence limits of the Sen's slope in percentage. Default value is 90
+#' 
+#' @author Martine Collaud Coen, MeteoSwiss (CH) and alessandro.bigi@unimore.it, University of Modena and Reggio Emilia (IT)
+#' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
+#' @examples
+#'
+#' @export
 
 compute.MK.stat <- function(data, t.time, resolution, alpha.mk = 95, alpha.cl = 90) {
 
@@ -32,7 +44,7 @@ compute.MK.stat <- function(data, t.time, resolution, alpha.mk = 95, alpha.cl = 
         as.numeric(.) / 3600 /24 -> epoch.time
 
     
-    out <- Sen.slope( data = data, epoch.time = epoch.time, vari = vari, alpha.cl = alpha.cl)
+    out <- sen.slope( data = data, epoch.time = epoch.time, vari = vari, alpha.cl = alpha.cl)
     result$slope <- out$slope * 365.25
     result$UCL <- out$UCL * 365.25
     result$LCL <- out$LCL * 365.25

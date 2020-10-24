@@ -1,5 +1,6 @@
 #' Calculate the normal standard variable Z
-#' see Gilbert 1987
+#'
+#' @references Gilbert 1987
 #' @author Martine Collaud Coen, MeteoSwiss (CH) and alessandro.bigi@unimore.it, University of Modena and Reggio Emilia (IT)
 #' @examples
 #'

@@ -1,27 +1,27 @@
+#' Compute the prewhitened datasets
+#'
+#' calculate all the necessary prewhitened datasets to asses the statistical significance and to compute the Sen's slope for each of the prewhitening method, including 3PW
+#'
+#' @param data.ts: it is a dataframe with a column named "Time" as POSIXct with timezone UTC and the other columns with observations
+#' @param column: the number column of the data to be analyzed (must be greater than 2)
+#' @param resolution: the measurement resolution, i.e. delta value below which 2 measurements are considered equivalent. It is used to compute the number of ties
+#' @param alpha.ak: statistical significance in percentage for the first lag autocorrelation (default is 95)
+#'
+#' @return  data.PW: a dataframe with 6 columns:
+#'      Time (as POSIXct in UTC)
+#'      PW = PW with the first lag autocorrelation of the data
+#'      PW.cor = PW corrected with 1/(1-ak1)
+#'      TFPW.WS = PW with the first lag autocorrelation of the data after detrending computed from PW data (see Wang & Swail)
+#'      TFPW.Y = method of Yue et al 2002, not 1/1-ak1) correction detrend on original data
+#'      VCTFPW = PW with the first lag autocorrelation of the data after detrending + correction of the PW data for the variance (see Wang 2015)
+#' 
+#' @author Martine Collaud Coen, MeteoSwiss (CH) and alessandro.bigi@unimore.it, University of Modena and Reggio Emilia (IT)
+#' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
+#' @examples
+#'
+#' @export
 
-## calculate all the necessary prewhitened datasets to asses the statistical
-## significance and to compute the Sen's slope for each of the prewhitening method, including 3PW
-
-## INPUT
-## "data.ts" is a dataframe with a column named "Time" as DateTime or POSIXct and other columns with observations
-## "column" is the number column of the data to be analyzed
-## "resolution" the measurement resolution, i.e. delta value below which 2 measurements are considered equivalent. It is used to compute the number of ties
-## alpha_ak = statistical significance in percentage for the first lag autocorrelation (default is 95)
-
-## OUTPUT
-## timetable with 1 dataPW dataframe with 5 columns:
-##      PW = PW with the first lag autocorrelation of the data
-##      PW.cor = PW corrected with 1/(1-ak1)
-##      TFPW.WS = PW with the first lag autocorrelation of the data after detrending computed from PW data (see Wang & Swail)
-##      TFPW.Y = method of Yue et al 2002, not 1/1-ak1) correction detrend on original data
-##      VCTFPW = PW with the first lag autocorrelation of the data after detrending + correction of the PW data for the variance (see Wang 2015)
-
-##  Martine Collaud Coen, 9.2020, MeteoSwiss
-##  Alessandro Bigi, Oct 2020, University of Modena and Reggio Emilia
-
-## checked Oct 15th ok!!
-
-prewhite.D <- function(data.ts, column, resolution, alpha.ak = 95){
+prewhite <- function(data.ts, column, resolution, alpha.ak = 95){
 
     if (alpha.ak > 100) stop('the confidence limit has to be lower than 100%.');
 
@@ -69,12 +69,12 @@ prewhite.D <- function(data.ts, column, resolution, alpha.ak = 95){
         vari <- Kendall.var(data = dataARremoved / (1 - c$PW), t = ties, n = n)
 
         ## slope of the PW data
-        b0.PW <- Sen.slope(data = dataARremoved / (1 - c$PW), epoch.time = epoch.time, vari = vari, alpha.cl = 90)$slope ##
+        b0.PW <- sen.slope(data = dataARremoved / (1 - c$PW), epoch.time = epoch.time, vari = vari, alpha.cl = 90)$slope ##
         ## compute ties and the slope for the original data
         t  <- Nb.tie(data = data, resolution = resolution)
         n <- S.test(data = data, t.time = t.time)$n
         vari <- Kendall.var(data = data, t = ties, n = n)
-        b0.or <- Sen.slope(data = data, epoch.time = epoch.time, vari = vari)$slope
+        b0.or <- sen.slope(data = data, epoch.time = epoch.time, vari = vari)$slope
 
         ## remove the trend
         dataDetrend.PW <- data - b0.PW * c(epoch.time - epoch.time[1])
@@ -105,8 +105,6 @@ prewhite.D <- function(data.ts, column, resolution, alpha.ak = 95){
         
         ##%calcul of TFPW correction Wang and Swail
     
-        ##avant C1>=0.05
-            
         if (abs(ak.PW) >= 0.05 & ss.PW == 95){
 
             ## change so that while can be used with the same variable: ak is new c and c1 is last c
@@ -122,7 +120,7 @@ prewhite.D <- function(data.ts, column, resolution, alpha.ak = 95){
             
             vari <- Kendall.var(dataARremoved.PW, t = ties, n = n)
             
-            b1.PW <- Sen.slope(data = dataARremoved.PW, epoch.time = epoch.time, vari = vari)$slope
+            b1.PW <- sen.slope(data = dataARremoved.PW, epoch.time = epoch.time, vari = vari)$slope
             
             ## remove the trend
 
@@ -148,7 +146,7 @@ prewhite.D <- function(data.ts, column, resolution, alpha.ak = 95){
 
                         n <- S.test(data = dataARremoved.2PW, t.time = time)$n
                         vari <- Kendall.var(data = dataARremoved.2PW, t = t, n = n)
-                        b1.PW <- Sen.slope(data = dataARremoved.2PW, epoch.time = epoch.time, vari = vari)$slope
+                        b1.PW <- sen.slope(data = dataARremoved.2PW, epoch.time = epoch.time, vari = vari)$slope
                         dataARremoved.PW <- dataARremoved.2PW
                         if (nb.loop > 10) break
                         

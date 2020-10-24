@@ -1,8 +1,11 @@
 Package: MannKendallTrends
-Version: 0.1
+Version: 1.0.0
 Date: 2020-10-22
 Title: MannKendall trends for geophysical time series
 Description: implementation of the MK code use for the paper Collaud Coen et al., AMT 2020
+Depends: R (>= 3.6.0)
+Imports: signal (>= 0.7), magrittr (>= 1.5)
+LazyData: true
 Author: Martine Collaud Coen <martine.collaud@meteoswiss.ch>, Alessandro Bigi <abigi@unimore.it>
 Maintainer: Alessandro Bigi <abigi@unimore.it>
 License: License: BSD_3_clause + file LICENSE

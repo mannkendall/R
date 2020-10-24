@@ -2,5 +2,11 @@
 
 export()
 export(Kendall.var)
+export(Nb.tie)
+export(S.test)
 export(STD.normale.var)
-export(Sen.slope)
+export(compute.MK.stat)
+export(nanprewhite.AR)
+export(prewhite)
+export(prob.3PW)
+export(sen.slope)

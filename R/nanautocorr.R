@@ -1,4 +1,5 @@
 #' Autocorrelation function
+#'
 #' Calculates the nlag autocorrelation coefficient for a data vector containing missing values
 #'    couples of data including NaNs are excluded from the computation.
 #'    Here the ACF is calculated using the Pearson's correlation coefficient for each lag.

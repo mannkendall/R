@@ -10,7 +10,7 @@
 #' @param nlags: maximum number of lags in the computation of ACF
 #' @param R: number of lags until the model is  supposed to have a significant AC coefficient (optional)
 #' @return out: vector of the ACF
-#' @author Fabio Oriani, fabio.oriani@unine.ch, University of Neuchatel (CH) original author; alessandro.bigi@unimore.it, University of Modena and Reggio Emilia (IT) for R version
+#' @author Fabio Oriani, fabio.oriani@unine.ch, University of Neuchatel (CH) original author; Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT) for the R version
 #'
 #' @export
 

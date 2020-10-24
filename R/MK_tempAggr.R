@@ -1,6 +1,14 @@
 #' MK test and Sen slope calculator
 #' 
-#' MK test and the Sen slope on the given time granularity. The function implements three prewhitening (PW) methods: PW (Yue et al., 2002) and TFPW.Y (trend free PW, Wang and Swail, 2001) to compute the statistical significance and VCTFPW (Wang, W., Chen, Y., Becker, S., & Liu, B. (2015). Variance Correction Prewhitening Method for Trend Detection in Autocorrelated Data. J. Hydrol. Eng., 20(12), 4015033-1-04015033�10. https://doi.org/10.1061/(ASCE)HE.1943-5584.0001234.) to compute the Sen's slope. Only the statistically significant (ss) autocorrelation are taken into account for the prewhitening. The ss of the trends is taken at 95% confidence limit. The upper and lower confidence limits are given by the 90% of the all intervals differences distribution. The significance level is given by the MK test and has therefore no direct relation to the confidences limits. If seasonal Mann-Kendall is applied, the yearly trend is assigned only if the results of the seasonal test are homogeneous. 
+#' `MK_tempAggr` performs the MK test and computes the Sen slope on the given time granularity.
+#'
+#' The function implements three prewhitening (PW) methods: PW (Yue et al., 2002) and TFPW.Y (trend free PW, Wang and Swail, 2001) to compute the statistical significance and
+#' VCTFPW (Wang, W., Chen, Y., Becker, S., \& Liu, B. (2015). Variance Correction Prewhitening Method for Trend Detection in Autocorrelated Data. J. Hydrol. Eng., 20(12),
+#' 4015033-1-04015033-10. https://doi.org/10.1061/(ASCE)HE.1943-5584.0001234.) to compute the Sen\'s slope.
+#' Only the statistically significant (ss) autocorrelation are taken into account for the prewhitening.
+#' The ss of the trends is taken at 95\% confidence limit. The upper and lower confidence limits are given by the 90\% of the all intervals differences distribution.
+#' The significance level is given by the MK test and has therefore no direct relation to the confidences limits. If seasonal Mann-Kendall is applied,
+#' the yearly trend is assigned only if the results of the seasonal test are homogeneous
 #' 
 #' @references: WMO-GAW publication N. 133, annex E, p. 26, MULTMK/PARTMK by C. Libiseller and the book of Gilbert 1998
 #' @references: Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
@@ -15,7 +23,7 @@
 #' @param seasonal: set to TRUE if the analysis needs to be performed over user-defined seasons (default is FALSE)
 #' @param seasons: a vector of the same lenght of the number of records in data.tempAgg used to split the data into seasons. It is used only if seasonal = TRUE.  
 #' @return P: probability for the statistical significance. If 3PW is applied, P = max(P.PW, P.TFPW.Y)
-#' @return ss: statistical significance: alpha % if the test is ss at the alpha confidence level. Default = 95%. 0 if the test is not ss at the alpha confidence level; -1 if the test is a TFPW.Y false positive at alpha confidence level; -2 if the test is a PW false positive at alpha confidence level
+#' @return ss: statistical significance: alpha \% if the test is ss at the alpha confidence level. Default = 95\%. 0 if the test is not ss at the alpha confidence level; -1 if the test is a TFPW.Y false positive at alpha confidence level; -2 if the test is a PW false positive at alpha confidence level
 #' @return slope: Sen's slope in units/y
 #' @return UCL: upper confidence level in units/y
 #' @return LCL: lower confidence level in units/

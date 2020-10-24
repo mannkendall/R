@@ -6,3 +6,4 @@
 ./.1.RData
 ./.2.RData
 .Rhistory
+.Rbuildignore

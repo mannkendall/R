@@ -1,14 +1,16 @@
 #' Autocorrelation function
 #'
-#' Calculates the nlag autocorrelation coefficient for a data vector containing missing values
-#'    couples of data including NaNs are excluded from the computation.
-#'    Here the ACF is calculated using the Pearson's correlation coefficient for each lag.
+#' `nanautocorr` computes autocorrelation coefficient dealing with missing values
+#' 
+#' Calculates the `nlag` autocorrelation coefficient for a data vector containing missing values
+#' couples of data including `NA` are excluded from the computation.
+#' Here the ACF is calculated using the Pearson\'s correlation coefficient for each lag.
 #' 
 #' @param data: vector of time series
 #' @param nlags: maximum number of lags in the computation of ACF
 #' @param R: number of lags until the model is  supposed to have a significant AC coefficient (optional)
-#' @return out: vector of acf
-#' @author Fabio Oriani, fabio.oriani@unine.ch, University of Neuchâtel (CH) original author; alessandro.bigi@unimore.it, University of Modena and Reggio Emilia (IT) for R version
+#' @return out: vector of the ACF
+#' @author Fabio Oriani, fabio.oriani@unine.ch, University of Neuchatel (CH) original author; alessandro.bigi@unimore.it, University of Modena and Reggio Emilia (IT) for R version
 #'
 #' @export
 

@@ -2,13 +2,13 @@
 #'
 #' calculate all the necessary prewhitened datasets to asses the statistical significance and to compute the Sen's slope for each of the prewhitening method, including 3PW
 #'
-#' @param data.ts: it is a dataframe with a column named "Time" as POSIXct with timezone UTC and the other columns with observations
-#' @param column: the number column of the data to be analyzed (must be greater than 2)
-#' @param resolution: the measurement resolution, i.e. delta value below which 2 measurements are considered equivalent. It is used to compute the number of ties
-#' @param alpha.ak: statistical significance in percentage for the first lag autocorrelation (default is 95)
+#' @param data.ts it is a dataframe with a column named "Time" as POSIXct with timezone UTC and the other columns with observations
+#' @param column the number column of the data to be analyzed (must be greater than 2)
+#' @param resolution the measurement resolution, i.e. delta value below which 2 measurements are considered equivalent. It is used to compute the number of ties
+#' @param alpha.ak statistical significance in percentage for the first lag autocorrelation (default is 95)
 #'
-#' @return  data.PW: a dataframe with 6 columns:
-#'      Time (as POSIXct in UTC)
+#' @return  data.PW a dataframe with 6 columns:
+#'      Time (as POSIXct in UTC) = time of the series
 #'      PW = PW with the first lag autocorrelation of the data
 #'      PW.cor = PW corrected with 1/(1-ak1)
 #'      TFPW.WS = PW with the first lag autocorrelation of the data after detrending computed from PW data (see Wang & Swail)

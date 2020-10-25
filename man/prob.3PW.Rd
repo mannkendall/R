@@ -8,16 +8,16 @@ Estimate the probability of the MK test with the 3PW method. To have the maximal
 prob.3PW(P.PW, P.TFPW.Y, alpha.mk)
 }
 \arguments{
-\item{P.PW:}{probability computed from the PW prewhitened dataset}
+\item{P.PW}{probability computed from the PW prewhitened dataset}
 
-\item{P.TFPW.Y:}{probability computed from the TFPW_Y prewhitened dataset}
+\item{P.TFPW.Y}{probability computed from the TFPW_Y prewhitened dataset}
 
-\item{alpha.mk:}{confidence level in percentage for the MK test.}
+\item{alpha.mk}{confidence level in percentage for the MK test.}
 }
 \value{
-P: probability of the MK test according to the 3PW method
+P probability of the MK test according to the 3PW method
 
-ss: statistical significance of the MK test (given the alpha.mk)
+ss statistical significance of the MK test (given the alpha.mk)
 }
 \description{
 Applies the 3PW method

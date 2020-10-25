@@ -6,10 +6,10 @@
 #' couples of data including `NA` are excluded from the computation.
 #' Here the ACF is calculated using the Pearson\'s correlation coefficient for each lag.
 #' 
-#' @param data: vector of time series
-#' @param nlags: maximum number of lags in the computation of ACF
-#' @param R: number of lags until the model is  supposed to have a significant AC coefficient (optional)
-#' @return out: vector of the ACF
+#' @param data vector of time series
+#' @param nlags maximum number of lags in the computation of ACF
+#' @param R number of lags until the model is  supposed to have a significant AC coefficient (optional)
+#' @return out vector of the ACF
 #' @author Fabio Oriani, fabio.oriani@unine.ch, University of Neuchatel (CH) original author; Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT) for the R version
 #'
 #' @export

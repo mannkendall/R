@@ -7,9 +7,9 @@
 S.test(data, t.time)
 }
 \arguments{
-\item{data:}{it is the vector of observations}
+\item{data}{it is the vector of observations}
 
-\item{t.time:}{it is a matrix with the year, month, date vector as individual variables in each column. The number of rows is the number of obsverations.}
+\item{t.time}{it is a matrix with the year, month, date vector as individual variables in each column. The number of rows is the number of obsverations.}
 }
 \value{
 a list containing S and n. S is the double sum on the sign of the difference between data pairs (Si) and n is the number of valid data in each year of the time series

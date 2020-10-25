@@ -17,34 +17,34 @@ MK.tempAggr(
 )
 }
 \arguments{
-\item{data:}{a data.frame with the first column being a POSIXct object with tz = "UTC" and the second column the variable to be analysed}
+\item{data}{a data.frame with the first column being a POSIXct object with tz = "UTC" and the second column the variable to be analysed}
 
-\item{PW.method:}{the PW method used: e.g. one among: 3PW, PW, TFPW.Y, TFPW.WS and VCTFPW. The default is 3PW.}
+\item{PW.method}{the PW method used: e.g. one among: 3PW, PW, TFPW.Y, TFPW.WS and VCTFPW. The default is 3PW.}
 
-\item{resolution:}{It is taken into account to determine the number of ties; a good guess it is the resolution of the instrument or a little bit higher. This parameters can be determinant for the results but not very sensitive}
+\item{resolution}{It is taken into account to determine the number of ties; a good guess it is the resolution of the instrument or a little bit higher. This parameters can be determinant for the results but not very sensitive}
 
-\item{alpha.mk:}{confidence limit for Mk test in percentage. Default value is 95}
+\item{alpha.mk}{confidence limit for Mk test in percentage. Default value is 95}
 
-\item{alpha.cl:}{confidence limit for the confidence limits of the Sen's slope in percentage. Default value is 90}
+\item{alpha.cl}{confidence limit for the confidence limits of the Sen's slope in percentage. Default value is 90}
 
-\item{alpha.xhomo:}{confidence limit for the homogeneity between seasons in percentage. Default value is 90}
+\item{alpha.xhomo}{confidence limit for the homogeneity between seasons in percentage. Default value is 90}
 
-\item{alpha.ak:}{confidence limit for the first lag autocorrelation in percentage. Default value is 95}
+\item{alpha.ak}{confidence limit for the first lag autocorrelation in percentage. Default value is 95}
 
-\item{seasonal:}{set to TRUE if the analysis needs to be performed over user-defined seasons (default is FALSE)}
+\item{seasonal}{set to TRUE if the analysis needs to be performed over user-defined seasons (default is FALSE)}
 
-\item{seasons:}{a vector of the same lenght of the number of records in data.tempAgg used to split the data into seasons. It is used only if seasonal = TRUE.}
+\item{seasons}{a vector of the same lenght of the number of records in data.tempAgg used to split the data into seasons. It is used only if seasonal = TRUE.}
 }
 \value{
-P: probability for the statistical significance. If 3PW is applied, P = max(P.PW, P.TFPW.Y)
+P probability for the statistical significance. If 3PW is applied, P = max(P.PW, P.TFPW.Y)
 
-ss: statistical significance: alpha \% if the test is ss at the alpha confidence level. Default = 95\%. 0 if the test is not ss at the alpha confidence level; -1 if the test is a TFPW.Y false positive at alpha confidence level; -2 if the test is a PW false positive at alpha confidence level
+ss statistical significance: alpha \% if the test is ss at the alpha confidence level. Default = 95\%. 0 if the test is not ss at the alpha confidence level; -1 if the test is a TFPW.Y false positive at alpha confidence level; -2 if the test is a PW false positive at alpha confidence level
 
-slope: Sen's slope in units/y
+slope Sen's slope in units/y
 
-UCL: upper confidence level in units/y
+UCL upper confidence level in units/y
 
-LCL: lower confidence level in units/
+LCL lower confidence level in units/
 }
 \description{
 `MK_tempAggr` performs the MK test and computes the Sen slope on the given time granularity.
@@ -62,9 +62,9 @@ the yearly trend is assigned only if the results of the seasonal test are homoge
 
 }
 \references{
-: WMO-GAW publication N. 133, annex E, p. 26, MULTMK/PARTMK by C. Libiseller and the book of Gilbert 1998
+WMO-GAW publication N. 133, annex E, p. 26, MULTMK/PARTMK by C. Libiseller and the book of Gilbert 1998
 
-: Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
+Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
 
 Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
 }

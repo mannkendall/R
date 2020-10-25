@@ -7,12 +7,12 @@
 Nb.tie(data, resolution)
 }
 \arguments{
-\item{data:}{this is the vector of data to be analysed}
+\item{data}{this is the vector of data to be analysed}
 
-\item{resolution:}{the measurement resolution, i.e. delta value below which 2 measurements are considered equivalent}
+\item{resolution}{the measurement resolution, i.e. delta value below which 2 measurements are considered equivalent}
 }
 \value{
-t: amount of ties in the data
+t amount of ties in the data
 }
 \description{
 compute the number of data considered equivalent and treated as ties

@@ -3,13 +3,13 @@
 #' It computes the median of the slopes for each interval (xj - xi) / (j - i), j>i (see Gilbert 1987) 
 #'     The confidence limits are compute with an interpolation that is important is the number of data is small, such as yearly averages for a 10 year's trend.
 #'
-#' @param epoch.time: vector of integer times (e.g. days) from the epoch
-#' @param data: a vector of observed data
-#' @param vari: Kendall variance as calculated by Kendall.var
-#' @param alpha.cl: confidence level for the confidence limit (90 or 95; default: 90)
-#' @return slope: Sen's slope
-#' @return LCL: slope lower confidence limit
-#' @return UCL: slope upper confidence limit
+#' @param epoch.time vector of integer times (e.g. days) from the epoch
+#' @param data a vector of observed data
+#' @param vari Kendall variance as calculated by Kendall.var
+#' @param alpha.cl confidence level for the confidence limit (90 or 95; default: 90)
+#' @return slope Sen's slope
+#' @return LCL slope lower confidence limit
+#' @return UCL slope upper confidence limit
 #' 
 #' @author Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)
 #' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.

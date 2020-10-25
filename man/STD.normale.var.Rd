@@ -2,12 +2,20 @@
 % Please edit documentation in R/STD_normale_var.R
 \name{STD.normale.var}
 \alias{STD.normale.var}
-\title{Calculate the normal standard variable Z}
+\title{Compute the normal standard variable Z}
 \usage{
 STD.normale.var(data, var.data)
 }
+\arguments{
+\item{data}{variable to be analysed}
+
+\item{var.data}{variance of the data}
+}
+\value{
+Z the normal standard variable
+}
 \description{
-Calculate the normal standard variable Z
+Compute the standard normal variable Z
 }
 \examples{
 

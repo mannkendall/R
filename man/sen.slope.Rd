@@ -7,20 +7,20 @@
 sen.slope(data, epoch.time, vari, alpha.cl = 90)
 }
 \arguments{
-\item{epoch.time:}{vector of integer times (e.g. days) from the epoch}
+\item{data}{a vector of observed data}
 
-\item{data:}{a vector of observed data}
+\item{epoch.time}{vector of integer times (e.g. days) from the epoch}
 
-\item{vari:}{Kendall variance as calculated by Kendall.var}
+\item{vari}{Kendall variance as calculated by Kendall.var}
 
-\item{alpha.cl:}{confidence level for the confidence limit (90 or 95; default: 90)}
+\item{alpha.cl}{confidence level for the confidence limit (90 or 95; default: 90)}
 }
 \value{
-slope: Sen's slope
+slope Sen's slope
 
-LCL: slope lower confidence limit
+LCL slope lower confidence limit
 
-UCL: slope upper confidence limit
+UCL slope upper confidence limit
 }
 \description{
 It computes the median of the slopes for each interval (xj - xi) / (j - i), j>i (see Gilbert 1987) 

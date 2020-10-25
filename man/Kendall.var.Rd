@@ -7,14 +7,14 @@
 Kendall.var(data, t, n)
 }
 \arguments{
-\item{data:}{vector of data observations}
+\item{data}{vector of data observations}
 
-\item{t:}{the number of element in each tie}
+\item{t}{the number of element in each tie}
 
-\item{n:}{number of non missing datamethod2order method to order colors (\code{"hsv"} or \code{"cluster"})}
+\item{n}{number of non missing datamethod2order method to order colors (\code{"hsv"} or \code{"cluster"})}
 }
 \value{
-the estimate of variance computed as in GAW report No 133 (A. Sirois), p.30 of annex D
+y numeric with the estimate of variance computed as in GAW report No 133 (A. Sirois), p.30 of annex D
 }
 \description{
 calculate the variance with ties in the data and ties in time

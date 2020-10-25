@@ -7,17 +7,17 @@
 prewhite(data.ts, column, resolution, alpha.ak = 95)
 }
 \arguments{
-\item{data.ts:}{it is a dataframe with a column named "Time" as POSIXct with timezone UTC and the other columns with observations}
+\item{data.ts}{it is a dataframe with a column named "Time" as POSIXct with timezone UTC and the other columns with observations}
 
-\item{column:}{the number column of the data to be analyzed (must be greater than 2)}
+\item{column}{the number column of the data to be analyzed (must be greater than 2)}
 
-\item{resolution:}{the measurement resolution, i.e. delta value below which 2 measurements are considered equivalent. It is used to compute the number of ties}
+\item{resolution}{the measurement resolution, i.e. delta value below which 2 measurements are considered equivalent. It is used to compute the number of ties}
 
-\item{alpha.ak:}{statistical significance in percentage for the first lag autocorrelation (default is 95)}
+\item{alpha.ak}{statistical significance in percentage for the first lag autocorrelation (default is 95)}
 }
 \value{
-data.PW: a dataframe with 6 columns:
-     Time (as POSIXct in UTC)
+data.PW a dataframe with 6 columns:
+     Time (as POSIXct in UTC) = time of the series
      PW = PW with the first lag autocorrelation of the data
      PW.cor = PW corrected with 1/(1-ak1)
      TFPW.WS = PW with the first lag autocorrelation of the data after detrending computed from PW data (see Wang & Swail)

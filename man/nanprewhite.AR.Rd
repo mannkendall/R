@@ -7,16 +7,16 @@
 nanprewhite.AR(data, alpha.ak = 95)
 }
 \arguments{
-\item{data:}{vector to be analysed}
+\item{data}{vector to be analysed}
 
-\item{alpha.ak:}{statistical significance in percentage for the first lag autocorrelation (default is 95)}
+\item{alpha.ak}{statistical significance in percentage for the first lag autocorrelation (default is 95)}
 }
 \value{
-ak.lag: fist lag autocorrelation coefficient
+ak.lag fist lag autocorrelation coefficient
 
-data.prewhite: data after removing of the first lag autorcorrelation; if ak.lag is statistically significant, original data otherwise
+data.prewhite data after removing of the first lag autorcorrelation; if ak.lag is statistically significant, original data otherwise
 
-ak.ss: statistical significance of the first lag autocorrelation: alpha.ak is the statistical significance at the alpha.ak level, zero otherwise
+ak.ss statistical significance of the first lag autocorrelation: alpha.ak is the statistical significance at the alpha.ak level, zero otherwise
 }
 \description{
 Define the first lag autocorrelation coefficient to prewhite the data as an AR(Kmax) function

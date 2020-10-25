@@ -7,14 +7,14 @@
 nanautocorr(data, nlags, R)
 }
 \arguments{
-\item{data:}{vector of time series}
+\item{data}{vector of time series}
 
-\item{nlags:}{maximum number of lags in the computation of ACF}
+\item{nlags}{maximum number of lags in the computation of ACF}
 
-\item{R:}{number of lags until the model is  supposed to have a significant AC coefficient (optional)}
+\item{R}{number of lags until the model is  supposed to have a significant AC coefficient (optional)}
 }
 \value{
-out: vector of the ACF
+out vector of the ACF
 }
 \description{
 `nanautocorr` computes autocorrelation coefficient dealing with missing values

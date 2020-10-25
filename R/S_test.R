@@ -1,8 +1,8 @@
 #' Compute the S statistic for the MK test
 #'
 #' 
-#' @param data: it is the vector of observations
-#' @param t.time: it is a matrix with the year, month, date vector as individual variables in each column. The number of rows is the number of obsverations.
+#' @param data it is the vector of observations
+#' @param t.time it is a matrix with the year, month, date vector as individual variables in each column. The number of rows is the number of obsverations.
 #'
 #' @return a list containing S and n. S is the double sum on the sign of the difference between data pairs (Si) and n is the number of valid data in each year of the time series
 #' 

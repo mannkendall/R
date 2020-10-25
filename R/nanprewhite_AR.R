@@ -2,12 +2,12 @@
 #'
 #' Define the first lag autocorrelation coefficient to prewhite the data as an AR(Kmax) function
 #' 
-#' @param data: vector to be analysed
-#' @param alpha.ak: statistical significance in percentage for the first lag autocorrelation (default is 95)  
+#' @param data vector to be analysed
+#' @param alpha.ak statistical significance in percentage for the first lag autocorrelation (default is 95)  
 #'
-#' @return ak.lag: fist lag autocorrelation coefficient
-#' @return data.prewhite: data after removing of the first lag autorcorrelation; if ak.lag is statistically significant, original data otherwise
-#' @return ak.ss: statistical significance of the first lag autocorrelation: alpha.ak is the statistical significance at the alpha.ak level, zero otherwise
+#' @return ak.lag fist lag autocorrelation coefficient
+#' @return data.prewhite data after removing of the first lag autorcorrelation; if ak.lag is statistically significant, original data otherwise
+#' @return ak.ss statistical significance of the first lag autocorrelation: alpha.ak is the statistical significance at the alpha.ak level, zero otherwise
 #'
 #' @author Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)
 #' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.

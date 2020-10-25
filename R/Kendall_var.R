@@ -2,12 +2,12 @@
 #'
 #' calculate the variance with ties in the data and ties in time
 #'
-#' @param data: vector of data observations
-#' @param t: the number of element in each tie
-#' @param n: number of non missing datamethod2order method to order colors (\code{"hsv"} or \code{"cluster"})
+#' @param data vector of data observations
+#' @param t the number of element in each tie
+#' @param n number of non missing datamethod2order method to order colors (\code{"hsv"} or \code{"cluster"})
 #'
-#' @return the estimate of variance computed as in GAW report No 133 (A. Sirois), p.30 of annex D
-#' @author Martine Collaud Coen, MeteoSwiss (CH) and alessandro.bigi@unimore.it, University of Modena and Reggio Emilia (IT)
+#' @return y numeric with the estimate of variance computed as in GAW report No 133 (A. Sirois), p.30 of annex D
+#' @author Martine Collaud Coen (martine.collaud@meteoswiss.com), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)
 #' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
 #' @examples
 #'

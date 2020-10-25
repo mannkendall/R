@@ -1,11 +1,17 @@
-##  compute the number of data considered as equivalent and treated as ties
-##  input: "data" is the vector of data to be analysed
-##         "resolution" is the measurement resolution, i.e. the interval between which 2 measures are considered as equals
-##         "data_tot" is necessary so that all columns have the same lenght. It is used to compute ties.
-##
-##  output: "vector" with the number of data per tie 
-
-## tested Oct 12th ok
+#' Classify data to compute ties
+#'
+#' compute the number of data considered equivalent and treated as ties
+#'
+#' @param data this is the vector of data to be analysed
+#' @param resolution the measurement resolution, i.e. delta value below which 2 measurements are considered equivalent
+#'
+#' @return t amount of ties in the data
+#'
+#' @author Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)
+#' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
+#' @examples
+#'
+#' @export
 
 Nb.tie <- function(data, resolution){
     
@@ -24,24 +30,10 @@ Nb.tie <- function(data, resolution){
         if (resolution >= interval){
             stop('the given resolution is too large for the considered dataset', call.= TRUE)
         }
-
-        ## Then compute the number of elements in each bin.
-        ## return np.histogram(data, bins=bins)[0]
-
-        ## python-based
-        ## nbins  <- as.integer( floor((M - m) / resolution) + 1)
-        ## nbins = int((np.nanmax(data)-np.nanmin(data))//resolution + 1)
-        ## bins2 <- seq(from = m, to = m + step * resolution, length.out = nbins + 1)
-        ## bins = np.linspace(np.nanmin(data), np.nanmin(data) + nbins * resolution, num=nbins + 1)
-
-        ## matlab-based
-        ## this is called step, but actually it's the number of bins
         step <- floor(interval / resolution) + 1      
         bins <- seq(from = m, to = m + step * resolution, by = resolution)
 
         t <- hist( x = data, breaks = bins, plot = FALSE, right = FALSE)$counts
-        ## t <- hist( x = data, breaks = bins, plot = FALSE, right = FALSE)
-        ## t2 <- hist( x = data, breaks = bins2, plot = FALSE, right = FALSE)$counts
         
     } else {
         t <- NA

@@ -2,18 +2,27 @@
 % Please edit documentation in R/STD_normale_var.R
 \name{STD.normale.var}
 \alias{STD.normale.var}
-\title{Calculate the normal standard variable Z
-see Gilbert 1987}
+\title{Compute the normal standard variable Z}
 \usage{
 STD.normale.var(data, var.data)
 }
+\arguments{
+\item{data}{variable to be analysed}
+
+\item{var.data}{variance of the data}
+}
+\value{
+Z the normal standard variable
+}
 \description{
-Calculate the normal standard variable Z
-see Gilbert 1987
+Compute the standard normal variable Z
 }
 \examples{
 
 }
+\references{
+Gilbert 1987
+}
 \author{
-Martine Collaud Coen, MeteoSwiss (CH) and alessandro.bigi@unimore.it, University of Modena and Reggio Emilia (IT)
+Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)
 }

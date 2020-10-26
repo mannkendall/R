@@ -12,3 +12,9 @@
 
 .. |watch| image:: https://img.shields.io/github/watchers/mannkendall/R.svg?style=social&label=Watch
    :target: https://github.com/mannkendall/R
+
+.. |github| image:: https://img.shields.io/github/release/mannkendall/R.svg
+   :target: https://github.com/mannkendall/R/releases
+
+.. |DOI| image:: https://zenodo.org/badge/291951039.svg
+   :target: https://zenodo.org/badge/latestdoi/291951039

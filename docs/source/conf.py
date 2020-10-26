@@ -23,7 +23,7 @@ file_absolute_path = Path(__file__).absolute()
 # Get the version
 version_file = file_absolute_path.parents[2] / 'DESCRIPTION'
 with version_file.open() as fid:
-    vers = next(line.split(":")[1] for line in fid.readlines() if 'Version ' in line)
+    vers = next(line.split(":")[1] for line in fid.readlines() if 'Version' in line)
 
 # -- Project information -----------------------------------------------------
 

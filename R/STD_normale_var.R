@@ -6,7 +6,7 @@
 #' @param var.data variance of the data
 #' @return Z the normal standard variable
 #' 
-#' @references Gilbert 1987
+#' @references Gilbert, R. O.: Statistical Methods for Environmental Pollution Monitoring, Van Nostrand Reinhold Company, New York, 1987
 #' @author Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)
 #' 
 #' @examples

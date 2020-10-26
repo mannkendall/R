@@ -15,10 +15,10 @@
 # sys.path.insert(0, os.path.abspath('.'))
 
 # Get the code version from the version file.
-#from pathlib import Path
+from pathlib import Path
 
 # Where are we located ?
-#file_absolute_path = Path(__file__).absolute()
+file_absolute_path = Path(__file__).absolute()
 
 # Get the version
 version_file = file_absolute_path.parents[2] / 'DESCRIPTION'

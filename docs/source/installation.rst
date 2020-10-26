@@ -10,21 +10,21 @@ In a terminal, type:
    devtools::install_github("mannkendall/R")
 
 And that will take care of things. |name| uses `semantic versioning <https://semver.org/>`_.
-The latest stable version is |version|.
+The latest version is |version|.
 
 The most recent release of |name| is also available for download from its
 `Github repository <https://github.com/mannkendall/R/releases/latest/>`_.
 
 Requirements
 ------------
-|name| is compatible with the following python versions:
+|name| is compatible with the following R versions:
 
 .. literalinclude:: ../../DESCRIPTION
     :language: R
     :lines: 7
 
 Furthermore, |name| relies on a the following external modules, which will be automatically
-installed
+installed:
 
 .. literalinclude:: ../../DESCRIPTION
     :language: R

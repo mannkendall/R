@@ -21,16 +21,16 @@
 #file_absolute_path = Path(__file__).absolute()
 
 # Get the version
-#version_file = file_absolute_path.parents[2] / 'src' / 'mannkendall' / 'mk_version.py'
-#with version_file.open() as fid:
-#    vers = next(line.split("'")[1] for line in fid.readlines() if 'VERSION' in line)
+version_file = file_absolute_path.parents[2] / 'DESCRIPTION'
+with version_file.open() as fid:
+    vers = next(line.split("'")[1] for line in fid.readlines() if 'Version: ' in line)
 
 # -- Project information -----------------------------------------------------
 
 project = 'mannkendall (R)'
 copyright = '2020, MeteoSwiss; 2020, Università degli Studi di Modena e Reggio Emilia.'
-author = 'A. Bigi'
-version = '1.0.0' # How is the R version set ? Can we read it from there directly ?
+author = 'Alessandro Bigi'
+version = vers
 
 # -- General configuration ---------------------------------------------------
 

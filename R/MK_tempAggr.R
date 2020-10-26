@@ -1,49 +1,40 @@
-#' @title: MK test and Sen slope calculator
+#' MK test and Sen slope calculator
 #' 
-#' @details: MK test and the Sen slope on the given time granularity
-#'   The function implements three prewhitening (PW) methods: PW (Yue et al., 2002) and TFPW.Y (trend free PW, Wang and Swail, 2001) to compute the statistical significance and VCTFPW (Wang, W., Chen, Y., Becker, S., & Liu, B. (2015). Variance Correction Prewhitening Method for Trend Detection in Autocorrelated Data. J. Hydrol. Eng., 20(12), 4015033-1-04015033�10. https://doi.org/10.1061/(ASCE)HE.1943-5584.0001234.)
-#'    to compute the Sen's slope
-#'    Only the statistically significant (ss) autocorrelation are taken into account for the prewhitening.
-#'    The ss of the trends is taken at 95% confidence limit
-#'    The upper and lower confidence limits are given by the 90% of the all intervals differences distribution.
-#'    The significance level is given by the MK test and has therefore no direct
-#'    relation to the confidences limits.
-#'    If seasonal Mann-Kendall is applied, the yearly trend is assigned only if the results of the seasonal test are homogeneous. In case of not ss
+#' `MK_tempAggr` performs the MK test and computes the Sen slope on the given time granularity.
+#'
+#' The function implements three prewhitening (PW) methods: PW (Yue et al., 2002) and TFPW.Y (trend free PW, Wang and Swail, 2001) to compute the statistical significance and
+#' VCTFPW (Wang, W., Chen, Y., Becker, S., \& Liu, B. (2015). Variance Correction Prewhitening Method for Trend Detection in Autocorrelated Data. J. Hydrol. Eng., 20(12),
+#' 4015033-1-04015033-10. https://doi.org/10.1061/(ASCE)HE.1943-5584.0001234.) to compute the Sen\'s slope.
+#' Only the statistically significant (ss) autocorrelation are taken into account for the prewhitening.
+#' The ss of the trends is taken at 95\% confidence limit. The upper and lower confidence limits are given by the 90\% of the all intervals differences distribution.
+#' The significance level is given by the MK test and has therefore no direct relation to the confidences limits. If seasonal Mann-Kendall is applied,
+#' the yearly trend is assigned only if the results of the seasonal test are homogeneous
 #' 
-#' @references: WMO-GAW publication N. 133, annex E, p. 26, MULTMK/PARTMK by C. Libiseller and the book of Gilbert 1998
-#' @references: Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
+#' @references WMO-GAW publication N. 133, annex E, p. 26, MULTMK/PARTMK by C. Libiseller and the book of Gilbert 1998
+#' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
 #' 
-#' @param data.tempAgg: a data.frame or matrix similar to a matlab timevector: a column for each of year, month, day, hour, minute, second
-#' @param  PW.method: the PW method used: e.g. one among: 3PW, PW, TFPW.Y, TFPW.WS and VCTFPW. The default is 3PW.
-#' @param resolution: It is taken into account to determine the number of ties; a good guess it is the resolution of the instrument or a little bit higher. This parameters can be determinant for the results but not very sensitive
-#' @param alpha.mk: confidence limit for Mk test in percentage. Default value is 95
-#' @param alpha.cl: confidence limit for the confidence limits of the Sen's slope in percentage. Default value is 90 
-#' @param alpha.xhomo: confidence limit for the homogeneity between seasons in percentage. Default value is 90 
-#' @param alpha.ak: confidence limit for the first lag autocorrelation in percentage. Default value is 95
-#' @param seasonal: set to TRUE if the analysis needs to be performed over user-defined seasons (default is FALSE)
-#' @param seasons: a vector of the same lenght of the number of records in data.tempAgg used to split the data into seasons. It is used only if seasonal = TRUE.  
-#' @return P: probability for the statistical significance. If 3PW is applied, P = max(P.PW, P.TFPW.Y)
-#' @return ss: statistical significance: alpha % if the test is ss at the alpha confidence level. Default = 95%. 0 if the test is not ss at the alpha confidence level; -1 if the test is a TFPW.Y false positive at alpha confidence level; -2 if the test is a PW false positive at alpha confidence level
-#' @return slope: Sen's slope in units/y
-#' @return UCL: upper confidence level in units/y
-#' @return LCL: lower confidence level in units/
-
-#' @author Martine Collaud Coen, MeteoSwiss (CH) and alessandro.bigi@unimore.it, University of Modena and Reggio Emilia (IT)
+#' @param data a data.frame with the first column being a POSIXct object with tz = "UTC" and the second column the variable to be analysed
+#' @param PW.method the PW method used: e.g. one among: 3PW, PW, TFPW.Y, TFPW.WS and VCTFPW. The default is 3PW.
+#' @param resolution It is taken into account to determine the number of ties; a good guess it is the resolution of the instrument or a little bit higher. This parameters can be determinant for the results but not very sensitive
+#' @param alpha.mk confidence limit for Mk test in percentage. Default value is 95
+#' @param alpha.cl confidence limit for the confidence limits of the Sen's slope in percentage. Default value is 90 
+#' @param alpha.xhomo confidence limit for the homogeneity between seasons in percentage. Default value is 90 
+#' @param alpha.ak confidence limit for the first lag autocorrelation in percentage. Default value is 95
+#' @param seasonal set to TRUE if the analysis needs to be performed over user-defined seasons (default is FALSE)
+#' @param seasons a vector of the same lenght of the number of records in data.tempAgg used to split the data into seasons. It is used only if seasonal = TRUE.  
+#' @return P probability for the statistical significance. If 3PW is applied, P = max(P.PW, P.TFPW.Y)
+#' @return ss statistical significance: alpha \% if the test is ss at the alpha confidence level. Default = 95\%. 0 if the test is not ss at the alpha confidence level; -1 if the test is a TFPW.Y false positive at alpha confidence level; -2 if the test is a PW false positive at alpha confidence level
+#' @return slope Sen's slope in units/y
+#' @return UCL upper confidence level in units/y
+#' @return LCL lower confidence level in units/
+#' 
+#' @author Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)
 #' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
 #' @examples
 #'
 #' @export
 
-MK.tempAggr <- function(data.tempAgg, PW.method = "3PW", resolution, alpha.mk = 95, alpha.cl = 90, alpha.xhomo = 90, alpha.ak = 95, seasonal = FALSE, seasons = NULL){
-
-    
-    ## transform original temporal data (separated columns for year, month, day, hour, minute, second) in POSIXct
-    ## generate the object "data" with a posix utc column (named "Time") and variables to be analysed
-    apply(data.tempAgg, 1, function(x) paste0(x[1:6], collapse="-")) %>%
-        unlist() %>%
-        strptime(., format= c("%Y-%m-%d-%H-%M-%S"), tz = "UTC") %>%
-        as.POSIXct(., tz="UTC") %>%
-        cbind.data.frame("Time" = ., data.tempAgg[, -c(1:6)]) -> data
+MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alpha.cl = 90, alpha.xhomo = 90, alpha.ak = 95, seasonal = FALSE, seasons = NULL){
 
     data <- data[order(data$Time), ]
    
@@ -57,7 +48,8 @@ MK.tempAggr <- function(data.tempAgg, PW.method = "3PW", resolution, alpha.mk = 
         names(result)  <- c("slope","UCL","LCL","P","ss")
 
         ## dataframe with 6 columns for year, month, day, hour, minute, second 
-        t.time <- data.tempAgg[,1:6]
+        t.time <- lapply(c("%Y","%m","%d","%H","%M", "%S"), function(x) as.numeric(format(data[, 1], x))) %>%
+            as.data.frame(.)
         
         ## compute all the prewhitened time series
         ## input of prewhite is data.frame with a first posix column
@@ -65,7 +57,8 @@ MK.tempAggr <- function(data.tempAgg, PW.method = "3PW", resolution, alpha.mk = 
         ## data.ak_y is the first lag autocorrelation coefficient for the complete time series
 
         message("Prewithening the timeseries...")
-        dataPW <- prewhite.D(data.ts = data, column = 2, resolution = resolution, alpha.ak = alpha.ak)
+
+        dataPW <- prewhite(data.ts = data, column = 2, resolution = resolution, alpha.ak = alpha.ak)
 
         pw.met.col <- grep(PW.method, names(dataPW), fixed = TRUE)
 
@@ -87,7 +80,7 @@ MK.tempAggr <- function(data.tempAgg, PW.method = "3PW", resolution, alpha.mk = 
             result.VCTFPW <- compute.MK.stat(data = dataPW$VCTFPW, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)$result
 
             ## determine the P and ss
-            out <- Prob.3PW(P.PW = result.PW$P, P.TFPW.Y = result.TFPW.Y$P, alpha.mk = alpha.mk)
+            out <- prob.3PW(P.PW = result.PW$P, P.TFPW.Y = result.TFPW.Y$P, alpha.mk = alpha.mk)
             
             result$P <- out$P
             result$ss <- out$ss
@@ -103,7 +96,7 @@ MK.tempAggr <- function(data.tempAgg, PW.method = "3PW", resolution, alpha.mk = 
         message("Prewithening the full timeseries...")
         
         ## First prewhite the full timeseries
-        dataPW <- prewhite.D(data.ts = data, column = 2, resolution = resolution, alpha.ak = alpha.ak)
+        dataPW <- prewhite(data.ts = data, column = 2, resolution = resolution, alpha.ak = alpha.ak)
 
         ## split the time series across user-defined seasons
         data.season <- split(x = dataPW, f = seasons)
@@ -166,7 +159,7 @@ MK.tempAggr <- function(data.tempAgg, PW.method = "3PW", resolution, alpha.mk = 
                     
                     out.VCTFPW <- compute.MK.stat(data = data.mois$VCTFPW, t.time = t.time.mois, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)
 
-                    out <- Prob.3PW("P.PW" = out.PW$result$P, "P.TFPW.Y" = out.TFPW.Y$result$P, "alpha.mk" = alpha.mk)
+                    out <- prob.3PW("P.PW" = out.PW$result$P, "P.TFPW.Y" = out.TFPW.Y$result$P, "alpha.mk" = alpha.mk)
                     
                     ## update result table for the m-th season
                     result[m, c("P","ss")] <- out[c("P","ss")]
@@ -198,7 +191,7 @@ MK.tempAggr <- function(data.tempAgg, PW.method = "3PW", resolution, alpha.mk = 
             if (sum( dataPW$PW, na.rm = TRUE) > 10) {
                 result[m+1, "P"] <- 2 * (1 - pnorm( abs(Ztot), 0, 1))
             } else {
-                Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
+                ## Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
                 result[m + 1, "P"] <- Prob.MK.n[ abs(Stot) + 1, sum( dataPW$PW, na.rm = TRUE)]
             }
 
@@ -222,7 +215,7 @@ MK.tempAggr <- function(data.tempAgg, PW.method = "3PW", resolution, alpha.mk = 
             if (sum( dataPW$PW, na.rm = TRUE) > 10) {
                 Ptot.PW <- 2 * (1 - pnorm( abs(Ztot.PW), 0, 1))
             } else {
-                Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
+                ## Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
                 Ptot.PW <- Prob.MK.n[ abs(Stot.PW) + 1, sum( dataPW$PW, na.rm = TRUE) ]
             }
 
@@ -231,12 +224,12 @@ MK.tempAggr <- function(data.tempAgg, PW.method = "3PW", resolution, alpha.mk = 
             if ( sum(dataPW$TFPW.Y, na.rm = TRUE) > 10){
                 Ptot.TFPW.Y <- 2 * (1 - pnorm( abs(Ztot.TFPW.Y), 0, 1))
             } else {
-                Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
+                ## Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
                 Ptot.TFPW.Y <- Prob.MK.n[ abs(S.TFPW.Y) + 1, sum( dataPW$TFPW.Y, na.rm = TRUE)] 
             }
             
             ## determine the ss
-            out <- Prob.3PW(P.PW = Ptot.PW, P.TFPW.Y = Ptot.TFPW.Y, alpha.mk = alpha.mk)
+            out <- prob.3PW(P.PW = Ptot.PW, P.TFPW.Y = Ptot.TFPW.Y, alpha.mk = alpha.mk)
             result[m+1, c("P", "ss")] <- c(out$P, out$ss)
             
             ## compute xi-square to test the homogeneity between months. Since the slope

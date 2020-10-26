@@ -1,6 +1,14 @@
-#' Calculate the normal standard variable Z
-#' see Gilbert 1987
-#' @author Martine Collaud Coen, MeteoSwiss (CH) and alessandro.bigi@unimore.it, University of Modena and Reggio Emilia (IT)
+#' Compute the normal standard variable Z
+#'
+#' Compute the standard normal variable Z
+#'
+#' @param data variable to be analysed
+#' @param var.data variance of the data
+#' @return Z the normal standard variable
+#' 
+#' @references Gilbert 1987
+#' @author Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)
+#' 
 #' @examples
 #'
 #' @export

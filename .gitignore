@@ -4,3 +4,13 @@
 # Sphinx documentation
 docs/build/
 docs/source/modules
+
+*~
+.*~
+*.~
+./.RData
+./.0.RData
+./.1.RData
+./.2.RData
+.Rhistory
+.Rbuildignore

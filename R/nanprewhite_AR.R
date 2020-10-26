@@ -1,24 +1,22 @@
-## define the first lag autocorrelation coefficient to prewhite the data as an AR(Kmax)function
-## 
-##  Input:
-##     data: one dimensional daily timeseries
-##   
-##  output:
-##    ak.lag: fist lag autocorrelation coefficient
-##    data.prewhite: matrix after removing of the first lag autorcorrelation
-##                   if ak_lag is ss, original data otherwise.
-##    ak.ss (integer): statistical significance of the first lag autocorrelation:
-##                     alpha.ak is ss at the alpha.ak level, zero otherwise
-
-## Martine Collaud Coen, MeteoSwiss, 9.2019
-## Alessandro Bigi, University of Modena and Reggio Emilia, Sep 2020
-## data input test is  data  <-  unlist(read.table("../test_data/nanprewhite_AR_test1_in.csv"))
-## test on Oct 12th: ok!
+#' Compute AR1 prior to prewhite
+#'
+#' Define the first lag autocorrelation coefficient to prewhite the data as an AR(Kmax) function
+#' 
+#' @param data vector to be analysed
+#' @param alpha.ak statistical significance in percentage for the first lag autocorrelation (default is 95)  
+#'
+#' @return ak.lag fist lag autocorrelation coefficient
+#' @return data.prewhite data after removing of the first lag autorcorrelation; if ak.lag is statistically significant, original data otherwise
+#' @return ak.ss statistical significance of the first lag autocorrelation: alpha.ak is the statistical significance at the alpha.ak level, zero otherwise
+#'
+#' @author Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)
+#' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
+#' @examples
+#'
+#' @export
 
 
 nanprewhite.AR <- function(data, alpha.ak = 95){
-
-    require(signal)
 
     if (alpha.ak > 100) stop('the confidence limit has to be lower than 100%')
 

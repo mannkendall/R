@@ -10,7 +10,8 @@
 #' The significance level is given by the MK test and has therefore no direct relation to the confidences limits. If seasonal Mann-Kendall is applied,
 #' the yearly trend is assigned only if the results of the seasonal test are homogeneous
 #' 
-#' @references WMO-GAW publication N. 133, annex E, p. 26, MULTMK/PARTMK by C. Libiseller and the book of Gilbert 1998
+#' @references WMO-GAW publication N. 133, annex E, p. 26, MULTMK/PARTMK by C. Libiseller
+#' @references Gilbert, R. O.: Statistical Methods for Environmental Pollution Monitoring, Van Nostrand Reinhold Company, New York, 1987
 #' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
 #' 
 #' @param data a data.frame with the first column being a POSIXct object with tz = "UTC" and the second column the variable to be analysed

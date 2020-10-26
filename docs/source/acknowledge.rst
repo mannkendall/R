@@ -14,13 +14,13 @@ Acknowledging |name|
 
    `Collaud Coen et al., 2020, ... <http:....>`__
 
-3. |name| relies on external Python libraries that require & deserve to be acknowledged in their own
+3. |name| relies on external R libraries that require & deserve to be acknowledged in their own
    right. The following LaTeX blurb is one way to do so:
 
    .. code-block:: latex
 
         This research has made use of \textit{mannkendall v1.0.0} \citep[DOI:][]{CollaudCoen2020}
-        R code. \textit{mannkendall} relies on the following R packages:
+        R code. \textit{mannkendall} relies on the following R packages: \textit{signal}, \textit{magrittr}
 
 .. todo::
 

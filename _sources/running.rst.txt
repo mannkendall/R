@@ -47,7 +47,7 @@ INPUT:
   - ``alpha.xhomo`` (numeric) = confidence limit for the homogeneity between seasons in %. The default value is 90
   - ``alpha.ak`` (numeric) = confidence limit for the first lag autocorrelation in %. The default value is 95
   - ``seasonal`` (boolean) = ``TRUE`` if the analysis needs to be performed over user-defined seasons (default is ``FALSE``)
-  - ``seasons`` (vector) = a vector of numerics, or characters, or factors needed to ``split`` the ``data`` into seasons. It is used only if ``seasonal`` is set to ``TRUE``
+  - ``seasons`` (vector) = a vector of numerics, or characters, or factors needed to ``split`` the ``data`` into seasons. It is used only if ``seasonal = TRUE``
 
 
 OUTPUT:

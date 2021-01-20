@@ -189,7 +189,7 @@ segmentation and confidence limit is:</p>
 <div class="section" id="function-description">
 <h2>Function description:<a class="headerlink" href="#function-description" title="Permalink to this headline">¶</a></h2>
 <p>The MK test and the Sen slope are applied on the given time granularity, temporal aggregation and
-prewhitening method. Five prewhitening methods can be chosen, 3PW being the default option:</p>
+prewhitening (PW) method. Five prewhitening methods can be chosen, 3PW being the default option:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">3PW</span></code> (Collaud Coen et al., 2020): 3 prewhitening methods are applied (PW and TFPW_Y to determine the statistic significance (ss) of the MK test and the VCTFPW method to compute the Sen’s slope</p></li>
@@ -199,7 +199,7 @@ prewhitening method. Five prewhitening methods can be chosen, 3PW being the defa
 <li><p><code class="docutils literal notranslate"><span class="pre">VCTFPW</span></code> (variance corrected trend free PW, Wang et al., 2015)</p></li>
 </ul>
 </div></blockquote>
-<p>For the PW, only statiscally significant (ss) autocorrelation are taken into account. The default ss for the MK test is taken
+<p>For the PW, only statistically significant (ss) autocorrelation are taken into account. The default ss for the MK test is taken
 at 95% confidence limit. The default ss for upper and lower confidence limits is 90% of the all
 intervals differences distribution. The default ss for the autocorrelation coefficient is 95%. The
 default ss for the homogeneity test between temporal aggregation of the MK test is 90%.
@@ -222,15 +222,15 @@ If seasonal Mann-Kendall is applied, the yearly trend is assigned only if the re
 </div>
 <div class="section" id="output">
 <h3>OUTPUT:<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">result</span></code> (data.frame) = comprises the following 5 variables:</p>
+<p><code class="docutils literal notranslate"><span class="pre">result</span></code> (data.frame) comprises the following 5 variables:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">slope</span></code> (numeric) = Sen’s slope in units/y</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">UCL</span></code> (numeric) = upper confidence level in units/y</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">LCL</span></code> (numeric) = lower confidence level in units/y</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code> (numeric) =  probability for the statistical significance. If 3PW is applied, P= max(P_PW, P_TFPW_Y)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code> (numeric) =  probability for the statistical significance. If 3PW is applied, P = max(P_PW, P_TFPW_Y)</p></li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">ss</span></code> (numeric) = statistical significance:</dt><dd><ul>
+<dt><code class="docutils literal notranslate"><span class="pre">ss</span></code> (numeric) = statistical significance</dt><dd><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">alpha.mk</span></code> if the test is ss at the alpha confidence level. Default = 95%</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> if the test is not ss at the <code class="docutils literal notranslate"><span class="pre">alpha.mk</span></code> confidence level</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-1</span></code> if the test is a <code class="docutils literal notranslate"><span class="pre">TFPW.Y</span></code> fals epositive at <code class="docutils literal notranslate"><span class="pre">alpha.mk</span></code> confidence level</p></li>

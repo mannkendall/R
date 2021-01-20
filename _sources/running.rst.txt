@@ -22,7 +22,7 @@ Function description:
 ---------------------
 
 The MK test and the Sen slope are applied on the given time granularity, temporal aggregation and
-prewhitening method. Five prewhitening methods can be chosen, 3PW being the default option:
+prewhitening (PW) method. Five prewhitening methods can be chosen, 3PW being the default option:
 
   - ``3PW`` (Collaud Coen et al., 2020): 3 prewhitening methods are applied (PW and TFPW_Y to determine the statistic significance (ss) of the MK test and the VCTFPW method to compute the Sen's slope
   - ``PW`` (prewhitened, Kulkarni and von Storch, 1995)
@@ -30,7 +30,7 @@ prewhitening method. Five prewhitening methods can be chosen, 3PW being the defa
   - ``TFPW.WS`` (trend free PW, Wang and Swail, 2001)
   - ``VCTFPW`` (variance corrected trend free PW, Wang et al., 2015)
 
-For the PW, only statiscally significant (ss) autocorrelation are taken into account. The default ss for the MK test is taken
+For the PW, only statistically significant (ss) autocorrelation are taken into account. The default ss for the MK test is taken
 at 95% confidence limit. The default ss for upper and lower confidence limits is 90% of the all
 intervals differences distribution. The default ss for the autocorrelation coefficient is 95%. The
 default ss for the homogeneity test between temporal aggregation of the MK test is 90%.
@@ -53,17 +53,17 @@ INPUT:
 OUTPUT:
 *******
 
-``result`` (data.frame) = comprises the following 5 variables:
+``result`` (data.frame) comprises the following 5 variables:
 
   - ``slope`` (numeric) = Sen's slope in units/y
   - ``UCL`` (numeric) = upper confidence level in units/y
   - ``LCL`` (numeric) = lower confidence level in units/y
-  - ``P`` (numeric) =  probability for the statistical significance. If 3PW is applied, P= max(P_PW, P_TFPW_Y)
-  - ``ss`` (numeric) = statistical significance:
-        - ``alpha.mk`` if the test is ss at the alpha confidence level. Default = 95%
-        - ``0`` if the test is not ss at the ``alpha.mk`` confidence level
-        - ``-1`` if the test is a ``TFPW.Y`` fals epositive at ``alpha.mk`` confidence level
-        - ``-2`` if the test is a PW false positive at ``alpha.mk`` confidence level
+  - ``P`` (numeric) =  probability for the statistical significance. If 3PW is applied, P = max(P_PW, P_TFPW_Y)
+  - ``ss`` (numeric) = statistical significance
+        * ``alpha.mk`` if the test is ss at the alpha confidence level. Default = 95%
+        * ``0`` if the test is not ss at the ``alpha.mk`` confidence level
+        * ``-1`` if the test is a ``TFPW.Y`` fals epositive at ``alpha.mk`` confidence level
+        * ``-2`` if the test is a PW false positive at ``alpha.mk`` confidence level
 
 **Sources:**
 

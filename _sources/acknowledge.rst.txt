@@ -21,7 +21,3 @@ Acknowledging |name|
 
         This research has made use of \textit{mannkendall v1.0.0} \citep[DOI:10.5194/amt-13-6945-2020][]{CollaudCoen2020}
         R code. \textit{mannkendall} relies on the following R packages: \textit{signal}, \textit{magrittr}
-
-.. todo::
-
-    When the time comes, include here the link to the dedicated mannkendall article.

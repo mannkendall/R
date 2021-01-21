@@ -103,12 +103,13 @@ prewhite <- function(data.ts, column, resolution, alpha.ak = 95){
             dataPW$TFPW.Y <- data
         }
         
-        ##%calcul of TFPW correction Wang and Swail
+        ## computation of TFPW correction Wang and Swail
     
         if (abs(ak.PW) >= 0.05 & ss.PW == 95){
 
-            ## change so that while can be used with the same variable: ak is new c and c1 is last c
-            ## ak=c.VCTFPW;
+            ## change so that while can be used with the same variable:
+            ## ak is new c and c1 is last c
+            ## ak = c.VCTFPW
             
             c1 <- c$PW
         

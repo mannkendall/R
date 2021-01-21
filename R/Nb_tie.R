@@ -32,9 +32,9 @@ Nb.tie <- function(data, resolution){
         }
         step <- floor(interval / resolution) + 1      
         bins <- seq(from = m, to = m + step * resolution, by = resolution)
-
-        t <- hist( x = data, breaks = bins, plot = FALSE, right = FALSE)$counts
         
+        t <- hist( x = data, breaks = bins, plot = FALSE, right = FALSE)$counts
+
     } else {
         t <- NA
     }

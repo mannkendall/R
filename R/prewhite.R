@@ -116,7 +116,7 @@ prewhite <- function(data.ts, column, resolution, alpha.ak = 95){
             dataARremoved.PW  <-  c(data[1], (data[-1] - ak.PW * data[-length(data)]) / (1 - ak.PW))
         
             t <- Nb.tie(data = dataARremoved.PW, resolution = resolution)
-            
+
             n <- S.test(data = dataARremoved.PW, t.time = t.time)$n
             
             vari <- Kendall.var(dataARremoved.PW, t = ties, n = n)
@@ -144,8 +144,7 @@ prewhite <- function(data.ts, column, resolution, alpha.ak = 95){
                         dataARremoved.2PW <- c( data[1], c(data[-1] - ak.PW * data[-length(data)]) / (1 - ak.PW) )
 
                         t <- Nb.tie(data = dataARremoved.2PW, resolution = resolution)
-
-                        n <- S.test(data = dataARremoved.2PW, t.time = time)$n
+                        n <- S.test(data = dataARremoved.2PW, t.time = t.time)$n
                         vari <- Kendall.var(data = dataARremoved.2PW, t = t, n = n)
                         b1.PW <- sen.slope(data = dataARremoved.2PW, epoch.time = epoch.time, vari = vari)$slope
                         dataARremoved.PW <- dataARremoved.2PW

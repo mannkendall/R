@@ -37,7 +37,14 @@
 
 MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alpha.cl = 90, alpha.xhomo = 90, alpha.ak = 95, seasonal = FALSE, seasons = NULL){
 
-    data <- data[order(data$Time), ]
+    ## check if the data is a data.frame
+    ifelse(is.data.frame(data), assign("data", as.data.frame(data)), stop("data must be a data.frame")) 
+    
+    ## make sure that the data follows a chronological order
+    data <- data[order(data[,1]), ]
+
+    ## explicitly label the first column "Time"
+    names(data)[1] <- "Time"
    
     ## check the arguments
     if( sum(PW.method %in% c("3PW", "PW", "TFPW_Y", "TFPW_WS", "VCTFPW")) == 0) stop("Invalid argument for the PW method")
@@ -61,9 +68,10 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
 
         dataPW <- prewhite(data.ts = data, column = 2, resolution = resolution, alpha.ak = alpha.ak)
 
+        ## check which PW method will be used
         pw.met.col <- grep(PW.method, names(dataPW), fixed = TRUE)
-
-        if (is.na(pw.met.col) == FALSE && PW.method != "3PW") {
+        
+        if (length(pw.met.col) != 0 && PW.method != "3PW") {
             d.comp <- data[ , pw.met.col]
             
             ## compute the  Mann-Kendall test without temporal aggregation

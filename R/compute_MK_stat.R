@@ -29,7 +29,7 @@ compute.MK.stat <- function(data, t.time, resolution, alpha.mk = 95, alpha.cl = 
     if ( sum(data, na.rm = TRUE) > 10 ) {
         result$P <- 2 * (1 - pnorm( abs(Z), 0, 1))
     } else {
-        ## Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
+        Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
         result$P <- Prob.MK.n[ abs(S) + 1, sum(data, na.rm = TRUE)]
     }
     

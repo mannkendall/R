@@ -18,25 +18,19 @@
 
 compute.MK.stat <- function(data, t.time, resolution, alpha.mk = 95, alpha.cl = 90) {
 
-    message(str(data), " 1")
- 
     t <- Nb.tie(data = data, resolution = resolution)
     out <- S.test(data = data, t.time = t.time)
     S <- out$S
     n <- out$n
     result <- list()
 
-    message(str(data), " 2")
-    
     vari <- Kendall.var(data = data, t = t, n = n)
     Z <- STD.normale.var(data = S, var.data = vari)
-    message(str(data), " 3")
     if ( sum(data, na.rm = TRUE) > 10 ) {
         result$P <- 2 * (1 - pnorm( abs(Z), 0, 1))
     } else {
         ## Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
         result$P <- Prob.MK.n[ abs(S) + 1, sum(data, na.rm = TRUE)]
-        message(str(data), " 4")
     }
     
     ## determine the ss

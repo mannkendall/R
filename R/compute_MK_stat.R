@@ -23,7 +23,7 @@ compute.MK.stat <- function(data, t.time, resolution, alpha.mk = 95, alpha.cl = 
     S <- out$S
     n <- out$n
     result <- list()
-    
+
     vari <- Kendall.var(data = data, t = t, n = n)
     Z <- STD.normale.var(data = S, var.data = vari)
     if ( sum(data, na.rm = TRUE) > 10 ) {

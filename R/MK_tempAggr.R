@@ -78,7 +78,7 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
         }
 
         if (PW.method == '3PW')  {
-
+            print("datapw ", str(dataPW))
             result.PW <- compute.MK.stat(data = dataPW$PW, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)$result
 
             result.TFPW.Y <- compute.MK.stat(data = dataPW$TFPW.Y, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)$result

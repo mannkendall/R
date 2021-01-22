@@ -187,7 +187,7 @@ prewhite <- function(data.ts, column, resolution, alpha.ak = 95){
         ## no s.s. autocorrelation
         dataPW$PW <-  data
         dataPW$PW.cor <-  data
-        dataPW$TFPW.Y <-  data
+        dataPW$TFP.Y <-  data
         dataPW$TFPW.WS <-  data
         dataPW$VCTFPW <-  data
     }

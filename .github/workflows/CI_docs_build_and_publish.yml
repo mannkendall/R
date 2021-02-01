@@ -5,15 +5,17 @@
 # the ./docs/build/ folder are published as-is in a gh-pages branch of the repo, with only
 # .nojekyll, .gitignore, and .git (folder) in addition.
 #
-# This Action will be triggered only if the docs are actually changed in the push.
+# This Action will be triggered for any push to the master branch.
 
 name: CI_docs_publish
 
 on:
   push:
     branches: [ master ]
-    paths:
-      - 'docs/**'
+    # Run the action only if certain files are changed.
+    #paths:
+    #  - 'docs/**'
+    #  - 'VERSION'
   # For dev purposes, doing it on PR helps a lot
   #pull_request:
   #  branches: [ master ]

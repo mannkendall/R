@@ -1,9 +1,9 @@
 Package: MannKendallTrends
-Version: 1.0.0
-Date: 2020-10-22
+Version: 1.1.0
+Date: 2021-02-02
 Title: MannKendall trends for geophysical time series
 Description: implementation of the MK code use for the paper Collaud Coen et al., Atmospheric Measurement Techniques 2020.
-    For more information refers to the article.
+    For more information, refer to the article.
 Depends: R (>= 3.6.0)
 Imports: signal (>= 0.7), magrittr (>= 1.5)
 LazyData: true

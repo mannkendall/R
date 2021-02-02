@@ -5,7 +5,7 @@
    :target: https://github.com/mannkendall/R
 
 .. |issues| image:: https://img.shields.io/github/issues/mannkendall/R.svg?colorB=b4001e
-   :target: https://github.com/annkendall/R/issues
+   :target: https://github.com/mannkendall/R/issues
 
 .. |stars| image:: https://img.shields.io/github/stars/mannkendall/R.svg?style=social&label=Stars
    :target: https://github.com/mannkendall/R

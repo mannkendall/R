@@ -9,13 +9,13 @@ compute.MK.stat(data, t.time, resolution, alpha.mk = 95, alpha.cl = 90)
 \arguments{
 \item{data}{is the time series of the variable to be analysed}
 
-\item{t.time}{is array of times expressed as a 6 column data.frame with year, month, day, hour, minute, second}
+\item{t.time}{is the array of times expressed as a 6-column data.frame with year, month, day, hour, minute, second}
 
 \item{resolution}{the measurement resolution, i.e. delta value below which 2 measurements are considered equivalent. It is used to compute the number of ties}
 
 \item{alpha.mk}{confidence limit for Mk test in percentage. Default value is 95}
 
-\item{alpha.cl}{confidence limit for the confidence limits of the Sen's slope in percentage. Default value is 90}
+\item{alpha.cl}{confidence limit for the confidence limits of the Sen's slope in percentage. Default value is set to 90}
 }
 \value{
 a list named `output` containing a data.frame (`result`) and 3 numerics (`S`, `vari`, `Z`). `result` is a dataframe with 3 columns: `slope`, the estimate of the Sen's slope (as \% year^-1), `UCL` and `LCL` respectively the upper and the lower confidence limits of the slope (as \% year^-1). `S` is the value of the S statiscs, `vari` is the Kendall variance, `Z` is the resulting standard normal variable

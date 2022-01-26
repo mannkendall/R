@@ -34,12 +34,13 @@
 #' @examples
 #'
 #' @export
+#' @importFrom magrittr %>%
 
 MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alpha.cl = 90, alpha.xhomo = 90, alpha.ak = 95, seasonal = FALSE, seasons = NULL){
 
     ## check if the data is a data.frame
-    ifelse(is.data.frame(data), assign("data", as.data.frame(data)), stop("data must be a data.frame")) 
-    
+    ifelse(is.data.frame(data), assign("data", as.data.frame(data)), stop("data must be a data.frame"))
+
     ## make sure that the data follows a chronological order
     data <- data[order(data[,1]), ]
 
@@ -47,7 +48,7 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
     names(data)[1] <- "Time"
    
     ## check the arguments
-    if( sum(PW.method %in% c("3PW", "PW", "TFPW_Y", "TFPW_WS", "VCTFPW")) == 0) stop("Invalid argument for the PW method")
+    if( sum(PW.method %in% c("3PW", "PW", "TFPW.Y", "TFPW.WS", "VCTFPW")) == 0) stop("Invalid argument for the PW method")
 
     if (seasonal == FALSE){
 
@@ -69,10 +70,11 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
         dataPW <- prewhite(data.ts = data, column = 2, resolution = resolution, alpha.ak = alpha.ak)
 
         ## check which PW method will be used
-        pw.met.col <- grep(PW.method, names(dataPW), fixed = TRUE)
-        
+        pw.met.col <- match(PW.method, names(dataPW))
+
         if (length(pw.met.col) != 0 && PW.method != "3PW") {
-            d.comp <- data[ , pw.met.col]
+            
+            d.comp <- dataPW[ , pw.met.col]
             
             ## compute the  Mann-Kendall test without temporal aggregation
             result <- compute.MK.stat(data = d.comp, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)$result
@@ -193,7 +195,7 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
         ## compute for the whole period, that is the whole year
         message("Testing for seasonal homogeneity...")
 
-        if (PW.method %in% c('PW','TFPW_Y','TFPW_WS','VCTFPW')) {
+        if (PW.method %in% c('PW','TFPW.Y','TFPW.WS','VCTFPW')) {
 
             Ztot <- STD.normale.var( Stot, vari.tot )
 
@@ -228,7 +230,7 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
                 Ptot.PW <- Prob.MK.n[ abs(Stot.PW) + 1, sum( dataPW$PW, na.rm = TRUE) ]
             }
 
-            ## compute the statistical significance for TFPW_Y
+            ## compute the statistical significance for TFPW.Y
             Ztot.TFPW.Y <- STD.normale.var( S.TFPW.Y, vari.TFPW.Y)
             if ( sum(dataPW$TFPW.Y, na.rm = TRUE) > 10){
                 Ptot.TFPW.Y <- 2 * (1 - pnorm( abs(Ztot.TFPW.Y), 0, 1))

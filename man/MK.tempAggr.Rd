@@ -62,7 +62,9 @@ the yearly trend is assigned only if the results of the seasonal test are homoge
 
 }
 \references{
-WMO-GAW publication N. 133, annex E, p. 26, MULTMK/PARTMK by C. Libiseller and the book of Gilbert 1998
+WMO-GAW publication N. 133, annex E, p. 26, MULTMK/PARTMK by C. Libiseller
+
+Gilbert, R. O.: Statistical Methods for Environmental Pollution Monitoring, Van Nostrand Reinhold Company, New York, 1987
 
 Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
 

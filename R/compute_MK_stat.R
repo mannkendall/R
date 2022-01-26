@@ -2,7 +2,7 @@
 #'
 #' This function computes Mann Kendall statistics for a given time series
 #'
-#' @param t.time is array of times expressed as a 6 column data.frame with year, month, day, hour, minute, second
+#' @param t.time is the array of times expressed as a 6-column data.frame with year, month, day, hour, minute, second
 #' @param data is the time series of the variable to be analysed
 #' @param resolution the measurement resolution, i.e. delta value below which 2 measurements are considered equivalent. It is used to compute the number of ties
 #' @param alpha.mk confidence limit for Mk test in percentage. Default value is 95

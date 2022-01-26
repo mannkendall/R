@@ -16,7 +16,6 @@
 #'
 #' @export
 #' @importFrom magrittr %>%
-NULL
 
 compute.MK.stat <- function(data, t.time, resolution, alpha.mk = 95, alpha.cl = 90) {
 

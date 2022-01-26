@@ -34,6 +34,8 @@
 #' @examples
 #'
 #' @export
+#' @importFrom magrittr %>%
+NULL
 
 MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alpha.cl = 90, alpha.xhomo = 90, alpha.ak = 95, seasonal = FALSE, seasons = NULL){
 

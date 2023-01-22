@@ -1,11 +1,10 @@
 Package: MannKendallTrends
-Version: 1.0.0
-Date: 2020-10-22
+Version: 1.1.0
+Date: 2023-01-22
 Title: MannKendall trends for geophysical time series
-Description: implementation of the MK code use for the paper Collaud Coen et al., Atmospheric Measurement Techniques 2020.
+Description: Implementation of the MK code use for the paper Collaud Coen et al., Atmospheric Measurement Techniques 2020.
     For more information refers to the article.
-Depends: R (>= 3.6.0)
-Imports: signal (>= 0.7), magrittr (>= 1.5)
+Imports: signal (>= 0.7), magrittr (>= 1.5), robslopes (>= 1.0.5)
 LazyData: true
 Authors@R: c(
 	 person("Martine", "Collaud Coen", email = "martine.collaud@meteoswiss.ch", role = "aut"),
@@ -14,4 +13,4 @@ Authors@R: c(
 URL: https://mannkendall.github.io/R/
 Maintainer: Alessandro Bigi <abigi@unimore.it>
 License: BSD_3_clause + file LICENSE
-RoxygenNote: 7.0.2
+RoxygenNote: 7.2.3

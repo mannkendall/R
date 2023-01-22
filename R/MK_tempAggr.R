@@ -21,22 +21,24 @@
 #' @param alpha.cl confidence limit for the confidence limits of the Sen's slope in percentage. Default value is 90 
 #' @param alpha.xhomo confidence limit for the homogeneity between seasons in percentage. Default value is 90 
 #' @param alpha.ak confidence limit for the first lag autocorrelation in percentage. Default value is 95
-#' @param seasonal set to TRUE if the analysis needs to be performed over user-defined seasons (default is FALSE)
-#' @param seasons a vector of the same lenght of the number of records in data.tempAgg used to split the data into seasons. It is used only if seasonal = TRUE.  
+#' @param seasonal set to TRUE if the analysis needs to be performed over (optionally user-defined) seasons (default is FALSE)
+#' @param seasons a vector of the same length of the number of records of the input data, that it is used to split the input data into seasons. It is used only if seasonal = TRUE. If this is set to NULL, the data will be split according to meteorological seasons
+#' @param approx.sol if set to TRUE, Sen's slope is computed by the approximated algorithm by Dillencourt et al. (1992) implemented in the robslopes package. Needed for large datasets.
 #' @return P probability for the statistical significance. If 3PW is applied, P = max(P.PW, P.TFPW.Y)
 #' @return ss statistical significance: alpha \% if the test is ss at the alpha confidence level. Default = 95\%. 0 if the test is not ss at the alpha confidence level; -1 if the test is a TFPW.Y false positive at alpha confidence level; -2 if the test is a PW false positive at alpha confidence level
 #' @return slope Sen's slope in units/y
 #' @return UCL upper confidence level in units/y
-#' @return LCL lower confidence level in units/
+#' @return LCL lower confidence level in units/y
 #' 
 #' @author Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)
 #' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
+#' Dillencourt, M. B., Mount, D. M., & Netanyahu, N. S.: A randomized algorithm for slope selection. Inter. J. Comp. Geom. & Applic., https://doi.org/10.1142/S0218195992000020, 1992.
 #' @examples
 #'
 #' @export
 #' @importFrom magrittr %>%
 
-MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alpha.cl = 90, alpha.xhomo = 90, alpha.ak = 95, seasonal = FALSE, seasons = NULL){
+MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alpha.cl = 90, alpha.xhomo = 90, alpha.ak = 95, seasonal = FALSE, seasons = NULL, approx.sol = FALSE){
 
     ## check if the data is a data.frame
     ifelse(is.data.frame(data), assign("data", as.data.frame(data)), stop("data must be a data.frame"))
@@ -65,9 +67,9 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
         ## dataPW is a dataframe containing the 3 prewhitened series
         ## data.ak_y is the first lag autocorrelation coefficient for the complete time series
 
-        message("Prewithening the timeseries...")
+        message("Prewhitening the timeseries")
 
-        dataPW <- prewhite(data.ts = data, column = 2, resolution = resolution, alpha.ak = alpha.ak)
+        dataPW <- prewhite(data.ts = data, column = 2, resolution = resolution, alpha.ak = alpha.ak, approx.sol = approx.sol)
 
         ## check which PW method will be used
         pw.met.col <- match(PW.method, names(dataPW))
@@ -77,18 +79,23 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
             d.comp <- dataPW[ , pw.met.col]
             
             ## compute the  Mann-Kendall test without temporal aggregation
-            result <- compute.MK.stat(data = d.comp, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)$result
+            message(paste0("Computing statistics on the series preprocessed using the ",PW.method))
+            result <- compute.MK.stat(data = d.comp, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl, approx.sol = approx.sol)$result
         }
 
         if (PW.method == '3PW')  {
 
-            result.PW <- compute.MK.stat(data = dataPW$PW, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)$result
+            message("Computing statistics for the PW series")
+            result.PW <- compute.MK.stat(data = dataPW$PW, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl, approx.sol = approx.sol)$result
 
-            result.TFPW.Y <- compute.MK.stat(data = dataPW$TFPW.Y, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)$result
+            message("Computing statistics for the TFPW-Y series")
+            result.TFPW.Y <- compute.MK.stat(data = dataPW$TFPW.Y, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl, approx.sol = approx.sol)$result
 
-            result.TFPW.WS <- compute.MK.stat(data = dataPW$TFPW.WS, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)$result
+            message("Computing statistics for the TFPW-WS series")
+            result.TFPW.WS <- compute.MK.stat(data = dataPW$TFPW.WS, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl, approx.sol = approx.sol)$result
 
-            result.VCTFPW <- compute.MK.stat(data = dataPW$VCTFPW, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)$result
+            message("Computing statistics for the VCTFPW series")
+            result.VCTFPW <- compute.MK.stat(data = dataPW$VCTFPW, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl, approx.sol = approx.sol)$result
 
             ## determine the P and ss
             out <- prob.3PW(P.PW = result.PW$P, P.TFPW.Y = result.TFPW.Y$P, alpha.mk = alpha.mk)
@@ -104,17 +111,36 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
 
     if (seasonal == TRUE){
  
-        message("Prewithening the full timeseries...")
+        message("Prewhitening the timeseries")
         
         ## First prewhite the full timeseries
-        dataPW <- prewhite(data.ts = data, column = 2, resolution = resolution, alpha.ak = alpha.ak)
+        dataPW <- prewhite(data.ts = data, column = 2, resolution = resolution, alpha.ak = alpha.ak, approx.sol = approx.sol)
 
+        if(is.null(seasons)) {
+            message("No vector to split the data into season is provided:")
+            message("The data is divided by default according to meteorological seasons")
+            
+            ## add seasons
+            seasons <- rep(NA, nrow(data))
+            ## this is winter
+            seasons[ as.numeric(format(data$Time, "%m")) %in% c(1, 2, 12) ] <- "Winter"
+            ## this is spring
+            seasons[ as.numeric(format(data$Time, "%m")) %in% c(3, 4, 5) ] <- "Spring"
+            ## summer
+            seasons[ as.numeric(format(data$Time, "%m")) %in% c(6, 7, 8) ] <- "Summer"
+            ## autumn
+            seasons[ as.numeric(format(data$Time, "%m")) %in% c(9, 10, 11) ] <- "Autumn"
+
+        }
+        
+        
         ## split the time series across user-defined seasons
         data.season <- split(x = dataPW, f = seasons)
 
         ## prepare result dataframe
         result <-  data.frame(matrix(NA, nrow = length(data.season) + 1, ncol = 5))
         colnames(result)  <- c("slope","UCL","LCL","P","ss")
+        rownames(result)  <- c(names(data.season), "full_period") ## add row names to the result data.frame
 
         ## results needed for non-3PW method
         Z <- rep(NA, length(data.season))
@@ -131,15 +157,16 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
         ## loop through the elements of data.season (i.e. each season)
         for (m in 1:length(data.season)) {
 
-            message("Analysing season ", m, "...")
+            message("")
+            message("Analysing season '", names(data.season)[m], "'...")
 
-            data.mois <- data.season[[m]]
+            data.mois <- as.data.frame(data.season[[m]])
             
             ## get the matrix of times as year, month, day, hour, minute
             t.time.mois <- lapply(c("%Y","%m","%d","%H","%M", "%S"), function(x) as.numeric(format(data.mois$time, x))) %>%
                 as.data.frame(.)
 
-            if ( sum( na.omit(data.mois$PW) ) > 1) { ## un peu trop peu ??
+            if ( sum( complete.cases(data.mois$PW) ) > 1) { ## un peu trop peu ??
 
                 ## get the correct column in data.mois depending on PW.method
                 pw.met.col <- grep(PW.method, names(data.mois), fixed = TRUE)
@@ -150,7 +177,8 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
                     d.comp <- data.mois[ , pw.met.col]
                    
                     ## compute the  Mann-Kendall test using the PW.method
-                    out <- compute.MK.stat(data = d.comp, t.time = t.time.mois, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)
+                    message(paste0("Computing statistics on the series preprocessed using the ",PW.method))
+                    out <- compute.MK.stat(data = d.comp, t.time = t.time.mois, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl, approx.sol = approx.sol)
                     
                     result[m, c("slope","UCL","LCL")] <- out$result[c("slope","UCL","LCL")]
 
@@ -162,13 +190,17 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
 
                 if (PW.method == "3PW") {
 
-                    out.PW <- compute.MK.stat(data = data.mois$PW, t.time = t.time.mois, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)
+                    message("Computing statistics for the PW series")
+                    out.PW <- compute.MK.stat(data = data.mois$PW, t.time = t.time.mois, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl, approx.sol = approx.sol)
 
-                    out.TFPW.Y <- compute.MK.stat(data = data.mois$TFPW.Y, t.time = t.time.mois, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)
+                    message("Computing statistics for the TFPW-Y series")
+                    out.TFPW.Y <- compute.MK.stat(data = data.mois$TFPW.Y, t.time = t.time.mois, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl, approx.sol = approx.sol)
                     
-                    out.TFPW.WS <- compute.MK.stat(data = data.mois$TFPW.WS, t.time = t.time.mois, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)
-                    
-                    out.VCTFPW <- compute.MK.stat(data = data.mois$VCTFPW, t.time = t.time.mois, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl)
+                    message("Computing statistics for the TFPW-WS series")
+                    out.TFPW.WS <- compute.MK.stat(data = data.mois$TFPW.WS, t.time = t.time.mois, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl, approx.sol = approx.sol)
+
+                    message("Computing statistics for the VCTFPW series")
+                    out.VCTFPW <- compute.MK.stat(data = data.mois$VCTFPW, t.time = t.time.mois, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl, approx.sol = approx.sol)
 
                     out <- prob.3PW("P.PW" = out.PW$result$P, "P.TFPW.Y" = out.TFPW.Y$result$P, "alpha.mk" = alpha.mk)
                     
@@ -192,14 +224,14 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
         }
 
         
-        ## compute for the whole period, that is the whole year
+        ## compute the trend for the whole period
         message("Testing for seasonal homogeneity...")
 
         if (PW.method %in% c('PW','TFPW.Y','TFPW.WS','VCTFPW')) {
 
             Ztot <- STD.normale.var( Stot, vari.tot )
 
-            if (sum( dataPW$PW, na.rm = TRUE) > 10) {
+            if (sum( complete.cases(dataPW$PW) ) > 10) {
                 result[m+1, "P"] <- 2 * (1 - pnorm( abs(Ztot), 0, 1))
             } else {
                 ## Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
@@ -261,11 +293,13 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
             result$UCL[m + 1] <- median( result$UCL[1:m], na.rm = TRUE )
             result$LCL[m + 1] <- median( result$LCL[1:m], na.rm = TRUE )
         } else {
-            warning('the trends for the temporal aggregation are not homogeneous')
+            message("")
+            message('Warning: the trends for the temporal aggregation are not homogeneous')
             result$slope[m + 1] <- NA
             result$UCL[m + 1] <- NA
             result$LCL[m + 1] <- NA
         }
     }
+
     return(result)
 }

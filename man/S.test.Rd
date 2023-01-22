@@ -4,7 +4,7 @@
 \alias{S.test}
 \title{Compute the S statistic for the MK test}
 \usage{
-S.test(data, t.time)
+S.test(data, t.time, n.only = FALSE)
 }
 \arguments{
 \item{data}{it is the vector of observations}
@@ -16,9 +16,6 @@ a list containing S and n. S is the double sum on the sign of the difference bet
 }
 \description{
 Compute the S statistic for the MK test
-}
-\examples{
-
 }
 \references{
 Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.

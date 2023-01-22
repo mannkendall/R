@@ -4,7 +4,9 @@
 \name{Prob.MK.n}
 \alias{Prob.MK.n}
 \title{Probability data}
-\format{a data frame}
+\format{
+a data frame
+}
 \usage{
 Prob.MK.n
 }

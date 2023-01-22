@@ -4,7 +4,14 @@
 \alias{compute.MK.stat}
 \title{compute Mann-Kendall statistics}
 \usage{
-compute.MK.stat(data, t.time, resolution, alpha.mk = 95, alpha.cl = 90)
+compute.MK.stat(
+  data,
+  t.time,
+  resolution,
+  alpha.mk = 95,
+  alpha.cl = 90,
+  approx.sol = FALSE
+)
 }
 \arguments{
 \item{data}{is the time series of the variable to be analysed}
@@ -16,6 +23,8 @@ compute.MK.stat(data, t.time, resolution, alpha.mk = 95, alpha.cl = 90)
 \item{alpha.mk}{confidence limit for Mk test in percentage. Default value is 95}
 
 \item{alpha.cl}{confidence limit for the confidence limits of the Sen's slope in percentage. Default value is set to 90}
+
+\item{approx.sol}{if set to TRUE, Sen's slope is computed by the approximated algorithm by Dillencourt et al. (1992) implemented in the robslopes package. Needed for large datasets.}
 }
 \value{
 a list named `output` containing a data.frame (`result`) and 3 numerics (`S`, `vari`, `Z`). `result` is a dataframe with 3 columns: `slope`, the estimate of the Sen's slope (as \% year^-1), `UCL` and `LCL` respectively the upper and the lower confidence limits of the slope (as \% year^-1). `S` is the value of the S statiscs, `vari` is the Kendall variance, `Z` is the resulting standard normal variable
@@ -23,11 +32,9 @@ a list named `output` containing a data.frame (`result`) and 3 numerics (`S`, `v
 \description{
 This function computes Mann Kendall statistics for a given time series
 }
-\examples{
-
-}
 \references{
 Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
+Dillencourt, M. B., Mount, D. M., & Netanyahu, N. S.: A randomized algorithm for slope selection. Inter. J. Comp. Geom. & Applic., https://doi.org/10.1142/S0218195992000020, 1992.
 }
 \author{
 Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)

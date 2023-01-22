@@ -4,16 +4,27 @@
 \alias{prewhite}
 \title{Compute the prewhitened datasets}
 \usage{
-prewhite(data.ts, column, resolution, alpha.ak = 95)
+prewhite(
+  data.ts,
+  column,
+  resolution,
+  alpha.ak = 95,
+  alpha.cl = 90,
+  approx.sol = FALSE
+)
 }
 \arguments{
 \item{data.ts}{it is a dataframe with a column named "Time" as POSIXct with timezone UTC and the other columns with observations}
 
-\item{column}{the number column of the data to be analyzed (must be greater than 2)}
+\item{column}{the number column of the data to be analyzed (must be >= 2)}
 
 \item{resolution}{the measurement resolution, i.e. delta value below which 2 measurements are considered equivalent. It is used to compute the number of ties}
 
 \item{alpha.ak}{statistical significance in percentage for the first lag autocorrelation (default is 95)}
+
+\item{alpha.cl}{confidence level for the confidence limit (90 or 95; default: 90)}
+
+\item{approx.sol}{if set to TRUE, Sen's slope is computed by the approximated algorithm by Dillencourt et al. (1992) implemented in the robslopes package. Needed for large datasets.}
 }
 \value{
 data.PW a dataframe with 6 columns:
@@ -27,11 +38,9 @@ data.PW a dataframe with 6 columns:
 \description{
 calculate all the necessary prewhitened datasets to asses the statistical significance and to compute the Sen's slope for each of the prewhitening method, including 3PW
 }
-\examples{
-
-}
 \references{
 Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
+Dillencourt, M. B., Mount, D. M., & Netanyahu, N. S.: A randomized algorithm for slope selection. Inter. J. Comp. Geom. & Applic., https://doi.org/10.1142/S0218195992000020, 1992.
 }
 \author{
 Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)

@@ -21,9 +21,6 @@ ak.ss statistical significance of the first lag autocorrelation: alpha.ak is the
 \description{
 Define the first lag autocorrelation coefficient to prewhite the data as an AR(Kmax) function
 }
-\examples{
-
-}
 \references{
 Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
 }

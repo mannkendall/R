@@ -13,7 +13,8 @@ MK.tempAggr(
   alpha.xhomo = 90,
   alpha.ak = 95,
   seasonal = FALSE,
-  seasons = NULL
+  seasons = NULL,
+  approx.sol = FALSE
 )
 }
 \arguments{
@@ -31,9 +32,11 @@ MK.tempAggr(
 
 \item{alpha.ak}{confidence limit for the first lag autocorrelation in percentage. Default value is 95}
 
-\item{seasonal}{set to TRUE if the analysis needs to be performed over user-defined seasons (default is FALSE)}
+\item{seasonal}{set to TRUE if the analysis needs to be performed over (optionally user-defined) seasons (default is FALSE)}
 
-\item{seasons}{a vector of the same lenght of the number of records in data.tempAgg used to split the data into seasons. It is used only if seasonal = TRUE.}
+\item{seasons}{a vector of the same length of the number of records of the input data, that it is used to split the input data into seasons. It is used only if seasonal = TRUE. If this is set to NULL, the data will be split according to meteorological seasons}
+
+\item{approx.sol}{if set to TRUE, Sen's slope is computed by the approximated algorithm by Dillencourt et al. (1992) implemented in the robslopes package. Needed for large datasets.}
 }
 \value{
 P probability for the statistical significance. If 3PW is applied, P = max(P.PW, P.TFPW.Y)
@@ -44,7 +47,7 @@ slope Sen's slope in units/y
 
 UCL upper confidence level in units/y
 
-LCL lower confidence level in units/
+LCL lower confidence level in units/y
 }
 \description{
 `MK_tempAggr` performs the MK test and computes the Sen slope on the given time granularity.
@@ -58,9 +61,6 @@ The ss of the trends is taken at 95\% confidence limit. The upper and lower conf
 The significance level is given by the MK test and has therefore no direct relation to the confidences limits. If seasonal Mann-Kendall is applied,
 the yearly trend is assigned only if the results of the seasonal test are homogeneous
 }
-\examples{
-
-}
 \references{
 WMO-GAW publication N. 133, annex E, p. 26, MULTMK/PARTMK by C. Libiseller
 
@@ -69,6 +69,7 @@ Gilbert, R. O.: Statistical Methods for Environmental Pollution Monitoring, Van 
 Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
 
 Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
+Dillencourt, M. B., Mount, D. M., & Netanyahu, N. S.: A randomized algorithm for slope selection. Inter. J. Comp. Geom. & Applic., https://doi.org/10.1142/S0218195992000020, 1992.
 }
 \author{
 Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)

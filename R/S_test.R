@@ -12,7 +12,7 @@
 #'
 #' @export
 
-S.test <- function(data, t.time){
+S.test <- function(data, t.time, n.only = FALSE){
     
     ## determine the non-missing data number
     L <- length(data)
@@ -23,17 +23,17 @@ S.test <- function(data, t.time){
     an.end  <- max(t.time[,1], na.rm = TRUE)
     ## number of years
     nb.an <- an.end - an.debut + 1
- 
+    
     ## initialise matrix Sij
     Sij <- matrix(NA, nrow = nb.an, ncol = nb.an)
     n <- rep(NA, nb.an)
 
-    for (i in an.debut:an.end) {
+    for (i in an.debut:an.end) {## years
 
         ## full length of the valid data in the series for the i-th year
         n[i - an.debut + 1] <- length( na.omit(data[t.time[,1] == i]) )
 
-        if (i < an.end){
+        if (i < an.end & n.only == FALSE){
 
             for (j in c(i + 1) : an.end) {
 
@@ -51,6 +51,8 @@ S.test <- function(data, t.time){
         }
     }
     
-    S <- sum(Sij, na.rm = TRUE)   
-    return(list("n"=n, "S"=S))
+    S <- sum(Sij, na.rm = TRUE)
+    ## message(paste("S is:", S))
+    ## message(paste("n is:", n))
+    return(list("n" = n, "S" = S))
 }

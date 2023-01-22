@@ -17,9 +17,6 @@ Z the normal standard variable
 \description{
 Compute the standard normal variable Z
 }
-\examples{
-
-}
 \references{
 Gilbert 1987
 }

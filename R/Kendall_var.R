@@ -4,11 +4,14 @@
 #'
 #' @param data vector of data observations
 #' @param t the number of element in each tie
-#' @param n number of non missing datamethod2order method to order colors (\code{"hsv"} or \code{"cluster"})
+#' @param n number of non missing data for each year, it corresponds to ties in time
 #'
-#' @return y numeric with the estimate of variance computed as in GAW report No 133 (A. Sirois), p.30 of annex D
+#' @return y numeric with the estimate of variance computed as in GAW report No 133 (A. Sirois), p.30 of annex E
 #' @author Martine Collaud Coen (martine.collaud@meteoswiss.com), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)
 #' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
+#'
+#' @source  GAW report No 133 (A. Sirois, Environment Canada), eq 4.5 Annex E
+#' 
 #' @examples
 #'
 #' @export
@@ -27,7 +30,12 @@ Kendall.var <- function(data, t, n){
 
     L <- max(length(data))
 
-    y <- ((( Lreal * (Lreal - 1) * (2 * Lreal + 5)) - var.t1 - var.n1) / 18) + (var.t2 * var.n2 / (9 * Lreal * (Lreal - 1) * (Lreal - 2))) + (var.t3 * var.n3 / (2 * Lreal * (Lreal - 1)))
+    ## message(paste0("L is ", L))
+    
+    y <- ((( Lreal * (Lreal - 1) * (2 * Lreal + 5)) - var.t1 - var.n1) / 18) +
+        (var.t2 * var.n2 / (9 * Lreal * (Lreal - 1) * (Lreal - 2))) +
+        (var.t3 * var.n3 / (2 * Lreal * (Lreal - 1)))
+
     return(y)
 }
 

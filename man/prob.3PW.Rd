@@ -23,9 +23,6 @@ ss statistical significance of the MK test (given the alpha.mk)
 Applies the 3PW method
 Estimate the probability of the MK test with the 3PW method. To have the maximal certainty, P is taken as the maximum of P.PW and P.TFPW.Y. Estimate the statistical significance of the MK test as a function of the given confidence level alpha.mk
 }
-\examples{
-
-}
 \references{
 Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
 }

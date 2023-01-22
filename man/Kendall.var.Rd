@@ -3,6 +3,9 @@
 \name{Kendall.var}
 \alias{Kendall.var}
 \title{Estimate of Kendall Variance}
+\source{
+GAW report No 133 (A. Sirois, Environment Canada), eq 4.5 Annex E
+}
 \usage{
 Kendall.var(data, t, n)
 }
@@ -11,16 +14,13 @@ Kendall.var(data, t, n)
 
 \item{t}{the number of element in each tie}
 
-\item{n}{number of non missing datamethod2order method to order colors (\code{"hsv"} or \code{"cluster"})}
+\item{n}{number of non missing data for each year, it corresponds to ties in time}
 }
 \value{
-y numeric with the estimate of variance computed as in GAW report No 133 (A. Sirois), p.30 of annex D
+y numeric with the estimate of variance computed as in GAW report No 133 (A. Sirois), p.30 of annex E
 }
 \description{
 calculate the variance with ties in the data and ties in time
-}
-\examples{
-
 }
 \references{
 Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.

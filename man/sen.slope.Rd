@@ -4,7 +4,7 @@
 \alias{sen.slope}
 \title{Sen's slope estimate}
 \usage{
-sen.slope(data, epoch.time, vari, alpha.cl = 90)
+sen.slope(data, epoch.time, vari, alpha.cl = 90, approx.sol = FALSE)
 }
 \arguments{
 \item{data}{a vector of observed data}
@@ -14,6 +14,8 @@ sen.slope(data, epoch.time, vari, alpha.cl = 90)
 \item{vari}{Kendall variance as calculated by Kendall.var}
 
 \item{alpha.cl}{confidence level for the confidence limit (90 or 95; default: 90)}
+
+\item{approx.sol}{if set to TRUE, Sen's slope is computed by the approximated algorithm by Dillencourt et al. (1992) implemented in the robslopes package. Needed for large datasets.}
 }
 \value{
 slope Sen's slope
@@ -26,11 +28,9 @@ UCL slope upper confidence limit
 It computes the median of the slopes for each interval (xj - xi) / (j - i), j>i (see Gilbert 1987) 
     The confidence limits are compute with an interpolation that is important is the number of data is small, such as yearly averages for a 10 year's trend.
 }
-\examples{
-
-}
 \references{
 Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.
+Dillencourt, M. B., Mount, D. M., & Netanyahu, N. S.: A randomized algorithm for slope selection. Inter. J. Comp. Geom. & Applic., https://doi.org/10.1142/S0218195992000020, 1992.
 }
 \author{
 Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)

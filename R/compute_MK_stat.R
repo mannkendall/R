@@ -38,7 +38,9 @@ compute.MK.stat <- function(data, t.time, resolution, alpha.mk = 95, alpha.cl = 
     
     if ( sum(complete.cases(data)) > 10 ) { ## if you have more than 10 observations then do this
         result$P <- 2 * (1 - pnorm( abs(Z), 0, 1))
+        
     } else { ## if you have less than 10 observations use the tables
+
         ## Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
         message("Observations are less than 10: using approximate probability for the S statistics")
         result$P <- Prob.MK.n[ abs(S) + 1, sum(complete.cases(data))]
@@ -60,7 +62,7 @@ compute.MK.stat <- function(data, t.time, resolution, alpha.mk = 95, alpha.cl = 
     
     out <- sen.slope( data = data, epoch.time = epoch.time, vari = vari, alpha.cl = alpha.cl, approx.sol = approx.sol)
 
-    message(paste0("Sen's slope for this case is: ", out$slope * 365.25))
+    message(paste0("Sen's slope for this case is: ", round(out$slope * 365.25, 4), "\n"))
     
     result$slope <- out$slope * 365.25
     result$UCL <- out$UCL * 365.25

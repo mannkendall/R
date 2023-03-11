@@ -5,5 +5,10 @@
 #' @docType data
 #'
 #' @format a data frame
+#'
+#' @usage data()
+#' 
+#' @references 
+#'
 
 "Prob.MK.n"

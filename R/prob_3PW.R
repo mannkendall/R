@@ -18,6 +18,8 @@ prob.3PW <- function(P.PW, P.TFPW.Y, alpha.mk) {
 
 
     P.alpha <- 1 - alpha.mk / 100
+
+    ## message(paste0( "P.PW is: ", P.PW, "; P.TFPW.Y is: ", P.TFPW.Y, "\n"))
     
     ## compute the probability
     P <- max(P.PW, P.TFPW.Y, na.rm = TRUE)

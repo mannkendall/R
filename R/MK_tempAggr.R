@@ -21,8 +21,8 @@
 #' @param alpha.cl confidence limit for the confidence limits of the Sen's slope in percentage. Default value is 90 
 #' @param alpha.xhomo confidence limit for the homogeneity between seasons in percentage. Default value is 90 
 #' @param alpha.ak confidence limit for the first lag autocorrelation in percentage. Default value is 95
-#' @param seasonal set to TRUE if the analysis needs to be performed over (optionally user-defined) seasons (default is FALSE)
-#' @param seasons a vector of the same length of the number of records of the input data, that it is used to split the input data into seasons. It is used only if seasonal = TRUE. If this is set to NULL, the data will be split according to meteorological seasons
+#' @param seasonal set to TRUE if the analysis needs to be performed over seasons (default is FALSE). Optionally user can provide a custom vector used to split the dataset into seasons, using the command 'seasons'. If 'seasonal' is set to TRUE, but no custom vector is provided, the data will be split according to Northern Emisphere meteorological seasons.
+#' @param seasons a vector of the same length of the number of records of the input data, that it is used to split the input data into seasons. It is used only if seasonal = TRUE. If this is set to NULL, the data will be split according to Northern Emisphere meteorological seasons
 #' @param approx.sol if set to TRUE, Sen's slope is computed by the approximated algorithm by Dillencourt et al. (1992) implemented in the robslopes package. Needed for large datasets.
 #' @return P probability for the statistical significance. If 3PW is applied, P = max(P.PW, P.TFPW.Y)
 #' @return ss statistical significance: alpha \% if the test is ss at the alpha confidence level. Default = 95\%. 0 if the test is not ss at the alpha confidence level; -1 if the test is a TFPW.Y false positive at alpha confidence level; -2 if the test is a PW false positive at alpha confidence level
@@ -52,7 +52,7 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
     ## check the arguments
     if( sum(PW.method %in% c("3PW", "PW", "TFPW.Y", "TFPW.WS", "VCTFPW")) == 0) stop("Invalid argument for the PW method")
 
-    if (seasonal == FALSE){
+    if (seasonal == FALSE) {
 
         ## prepare result data
         result <- data.frame(matrix(NA, nrow = 1, ncol = 5))
@@ -97,8 +97,7 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
             message("Computing statistics for the VCTFPW series")
             result.VCTFPW <- compute.MK.stat(data = dataPW$VCTFPW, t.time = t.time, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl, approx.sol = approx.sol)$result
 
-            ## determine the P and ss
-            out <- prob.3PW(P.PW = result.PW$P, P.TFPW.Y = result.TFPW.Y$P, alpha.mk = alpha.mk)
+            out <- prob.3PW("P.PW" = result.PW$P, "P.TFPW.Y" = result.TFPW.Y$P, "alpha.mk" = alpha.mk)
             
             result$P <- out$P
             result$ss <- out$ss
@@ -118,7 +117,7 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
 
         if(is.null(seasons)) {
             message("No vector to split the data into season is provided:")
-            message("The data is divided by default according to meteorological seasons")
+            message("The data is divided by default according to Northern Emisphere meteorological seasons")
             
             ## add seasons
             seasons <- rep(NA, nrow(data))
@@ -132,8 +131,7 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
             seasons[ as.numeric(format(data$Time, "%m")) %in% c(9, 10, 11) ] <- "Autumn"
 
         }
-        
-        
+                
         ## split the time series across user-defined seasons
         data.season <- split(x = dataPW, f = seasons)
 
@@ -201,7 +199,6 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
 
                     message("Computing statistics for the VCTFPW series")
                     out.VCTFPW <- compute.MK.stat(data = data.mois$VCTFPW, t.time = t.time.mois, resolution = resolution, alpha.mk = alpha.mk, alpha.cl = alpha.cl, approx.sol = approx.sol)
-
                     out <- prob.3PW("P.PW" = out.PW$result$P, "P.TFPW.Y" = out.TFPW.Y$result$P, "alpha.mk" = alpha.mk)
                     
                     ## update result table for the m-th season
@@ -235,7 +232,7 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
                 result[m+1, "P"] <- 2 * (1 - pnorm( abs(Ztot), 0, 1))
             } else {
                 ## Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
-                result[m + 1, "P"] <- Prob.MK.n[ abs(Stot) + 1, sum( dataPW$PW, na.rm = TRUE)]
+                result[m + 1, "P"] <- Prob.MK.n[ abs(Stot) + 1, sum( complete.cases(dataPW$PW) )]
             }
 
             if (result[m + 1, "P"] <= 1 - alpha.mk / 100) {
@@ -255,24 +252,31 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
             ## compute the statistical significance for PW
             Ztot.PW <- STD.normale.var( S.PW, vari.PW )
 
-            if (sum( dataPW$PW, na.rm = TRUE) > 10) {
+            if (sum( complete.cases(dataPW$PW) ) > 10) {
                 Ptot.PW <- 2 * (1 - pnorm( abs(Ztot.PW), 0, 1))
             } else {
                 ## Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
-                Ptot.PW <- Prob.MK.n[ abs(Stot.PW) + 1, sum( dataPW$PW, na.rm = TRUE) ]
+                Ptot.PW <- Prob.MK.n[ abs(Stot.PW) + 1, sum( complete.cases(dataPW$PW) ) ]
             }
 
             ## compute the statistical significance for TFPW.Y
             Ztot.TFPW.Y <- STD.normale.var( S.TFPW.Y, vari.TFPW.Y)
-            if ( sum(dataPW$TFPW.Y, na.rm = TRUE) > 10){
+            if ( sum( complete.cases(dataPW$TFPW.Y) ) > 10){
                 Ptot.TFPW.Y <- 2 * (1 - pnorm( abs(Ztot.TFPW.Y), 0, 1))
             } else {
                 ## Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
-                Ptot.TFPW.Y <- Prob.MK.n[ abs(S.TFPW.Y) + 1, sum( dataPW$TFPW.Y, na.rm = TRUE)] 
+
+                message("here\n")
+                print(str(dataPW))
+                message("S.TFPW is ", S.TFPW.Y)
+                
+                Ptot.TFPW.Y <- Prob.MK.n[ abs(S.TFPW.Y) + 1, sum( complete.cases(dataPW$TFPW.Y) )] 
+
             }
             
-            ## determine the ss
-            out <- prob.3PW(P.PW = Ptot.PW, P.TFPW.Y = Ptot.TFPW.Y, alpha.mk = alpha.mk)
+            ## determine the P and ss
+                    
+            out <- prob.3PW("P.PW" = Ptot.PW, "P.TFPW.Y" = Ptot.TFPW.Y, "alpha.mk" = alpha.mk)
             result[m+1, c("P", "ss")] <- c(out$P, out$ss)
             
             ## compute xi-square to test the homogeneity between months. Since the slope

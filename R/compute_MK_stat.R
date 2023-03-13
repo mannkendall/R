@@ -9,7 +9,7 @@
 #' @param alpha.cl confidence limit for the confidence limits of the Sen's slope in percentage. Default value is set to 90
 #' @param approx.sol if set to TRUE, Sen's slope is computed by the approximated algorithm by Dillencourt et al. (1992) implemented in the robslopes package. Needed for large datasets.
 #'
-#' @return a list named `output` containing a data.frame (`result`) and 3 numerics (`S`, `vari`, `Z`). `result` is a dataframe with 3 columns: `slope`, the estimate of the Sen's slope (as \% year^-1), `UCL` and `LCL` respectively the upper and the lower confidence limits of the slope (as \% year^-1). `S` is the value of the S statiscs, `vari` is the Kendall variance, `Z` is the resulting standard normal variable
+#' @return a list named `output` containing a data.frame (`result`) and 3 numerics (`S`, `vari`, `Z`). `result` is a dataframe with 3 columns: `slope`, the estimate of the Sen's slope (as units year^-1), `UCL` and `LCL` respectively the upper and the lower confidence limits of the slope (as units year^-1). `S` is the value of the S statiscs, `vari` is the Kendall variance, `Z` is the resulting standard normal variable
 #' 
 #' @author Martine Collaud Coen (martine.collaud@meteoswiss.ch), MeteoSwiss (CH) and Alessandro Bigi (abigi@unimore.it), University of Modena and Reggio Emilia (IT)
 #' @references Collaud Coen, M., Andrews, E., Bigi, A., Romanens, G., Martucci, G., and Vuilleumier, L.: Effects of the prewhitening method, the time granularity and the time segmentation on the Mann-Kendall trend detection and the associated Sen's slope, Atmos. Meas. Tech., https://doi.org/10.5194/amt-2020-178, 2020.

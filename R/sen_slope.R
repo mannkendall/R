@@ -8,7 +8,7 @@
 #' @param vari Kendall variance as calculated by Kendall.var
 #' @param alpha.cl confidence level for the confidence limit (90 or 95; default: 90)
 #' @param approx.sol if set to TRUE, Sen's slope is computed by the approximated algorithm by Dillencourt et al. (1992) implemented in the robslopes package. Needed for large datasets.
-#' @return slope Sen's slope
+#' @return slope Sen's slope in units year^{-1}
 #' @return LCL slope lower confidence limit
 #' @return UCL slope upper confidence limit
 #' 

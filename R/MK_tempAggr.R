@@ -21,8 +21,8 @@
 #' @param alpha.cl confidence limit for the confidence limits of the Sen's slope in percentage. Default value is 90 
 #' @param alpha.xhomo confidence limit for the homogeneity between seasons in percentage. Default value is 90 
 #' @param alpha.ak confidence limit for the first lag autocorrelation in percentage. Default value is 95
-#' @param seasonal set to TRUE if the analysis needs to be performed over seasons (default is FALSE). Optionally user can provide a custom vector used to split the dataset into seasons, using the command 'seasons'. If 'seasonal' is set to TRUE, but no custom vector is provided, the data will be split according to Northern Emisphere meteorological seasons.
-#' @param seasons a vector of the same length of the number of records of the input data, that it is used to split the input data into seasons. It is used only if seasonal = TRUE. If this is set to NULL, the data will be split according to Northern Emisphere meteorological seasons
+#' @param seasonal set to TRUE if the analysis needs to be performed over seasons (default is FALSE). Optionally user can provide a custom vector used to split the dataset into seasons, using the command 'seasons'. If 'seasonal' is set to TRUE, but no custom vector is provided, the data will be split according to Northern hemisphere meteorological seasons.
+#' @param seasons a vector of the same length of the number of records of the input data, that it is used to split the input data into seasons. It is used only if seasonal = TRUE. If this is set to NULL, the data will be split according to Northern hemisphere meteorological seasons
 #' @param approx.sol if set to TRUE, Sen's slope is computed by the approximated algorithm by Dillencourt et al. (1992) implemented in the robslopes package. Needed for large datasets.
 #' @return P probability for the statistical significance. If 3PW is applied, P = max(P.PW, P.TFPW.Y)
 #' @return ss statistical significance: alpha \% if the test is ss at the alpha confidence level. Default = 95\%. 0 if the test is not ss at the alpha confidence level; -1 if the test is a TFPW.Y false positive at alpha confidence level; -2 if the test is a PW false positive at alpha confidence level
@@ -117,7 +117,7 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
 
         if(is.null(seasons)) {
             message("No vector to split the data into season is provided:")
-            message("The data is divided by default according to Northern Emisphere meteorological seasons")
+            message("The data is divided by default according to Northern hemisphere meteorological seasons")
             
             ## add seasons
             seasons <- rep(NA, nrow(data))
@@ -266,9 +266,9 @@ MK.tempAggr <- function(data, PW.method = "3PW", resolution, alpha.mk = 95, alph
             } else {
                 ## Prob.MK.n <- read.table('prob_mk_n.csv', sep=",", header = FALSE)
 
-                message("here\n")
-                print(str(dataPW))
-                message("S.TFPW is ", S.TFPW.Y)
+                ## message("here\n")
+                ## print(str(dataPW))
+                ## message("S.TFPW is ", S.TFPW.Y)
                 
                 Ptot.TFPW.Y <- Prob.MK.n[ abs(S.TFPW.Y) + 1, sum( complete.cases(dataPW$TFPW.Y) )] 
 

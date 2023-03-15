@@ -4,7 +4,7 @@ Date: 2023-01-22
 Title: MannKendall trends for geophysical time series
 Description: Implementation of the MK code use for the paper Collaud Coen et al., Atmospheric Measurement Techniques 2020.
     For more information refers to the article.
-Imports: signal (>= 0.7), magrittr (>= 1.5), robslopes (>= 1.0.5)
+Imports: signal (>= 0.7), magrittr (>= 1.5), robslopes (>= 1.0.5), Kendall (>= 2.2.1)
 LazyData: true
 Authors@R: c(
 	 person("Martine", "Collaud Coen", email = "martine.collaud@meteoswiss.ch", role = "aut"),
